@@ -37,7 +37,7 @@
 	</style>
 </head>
 <body>
-      <!-- <script>
+      <script>
 
 
          function validateForm() {
@@ -179,7 +179,7 @@
 
 
 
-      </script> -->
+      </script>
 	<div class = "float">
 		<div class="header">
 			<header id="header" class="hoc clear"> 
@@ -190,8 +190,8 @@
    		</header>
    	</div>
    		<div class="formBody">
-   			<!-- <form name="myform"  id="myform" action="mailer.php" method="POST" onsubmit="return validateForm();" enctype="multipart/form-data"> -->
-               <form name="myform"  id="myform" action="test.php" method="POST" enctype="multipart/form-data">
+   			<form name="myform"  id="myform" action="mailer.php" method="POST" onsubmit="return validateForm();" enctype="multipart/form-data">
+               <!-- <form name="myform"  id="myform" action="test.php" method="POST" enctype="multipart/form-data"> -->
    				
    				<div style="margin-bottom: 2%">
    				<h2 align="center">
@@ -295,7 +295,7 @@
                      <tr>
                         <td id="attr">Residential Phone Number : </td>
                         <td>
-                           <input type="text" name="residential_no" id="res_phone" >
+                          <input type="text" name="residential_no" id="res_phone" minlength="10" maxlength="10">
                         </td>
                      </tr>
                      <tr>
@@ -365,25 +365,25 @@
                      <tr>
                         <td id="attr">Aadhar Card Number :</td>
                         <td>
-                           <input type="text" name="aadhar" id="adhar" required>
+                           <input type="text" name="aadhar" id="adhar" required='true' minlength="12" maxlength="12">
                         </td>
                      </tr>
                      <tr>
                         <td id="attr">PF Number :</td>
                         <td>
-                           <input type="text" name="pf_no" id="pf_no" required>
+                           <input type="text" name="pf_no" id="pf_no" required='true' minlength="10" maxlength="14">
                         </td>
                      </tr>
                      <tr>
                         <td id="attr">PAN Card Number :</td>
                         <td>
-                           <input type="text" name="pan_no" id="pan_no" required>
+                           <input type="text" name="pan_no" id="pan_no" required='true' minlength="10" maxlength="10">
                         </td>
                      </tr>
                      <tr>
                         <td id="attr">Passport Number :</td>
                         <td>
-                           <input type="text" name="passport_no" id="passport_no" required>
+                           <input type="text" name="passport_no" id="passport_no" minlength="8" maxlength="9">
                         </td>
                      </tr>
                      <tr>
@@ -453,13 +453,13 @@
                      <tr>
                         <td id="attr">Account Number :</td>
                         <td>
-                           <input type="text" name="acc_no" id="account_no" required>
+                           <input type="text" name="acc_no" id="account_no" maxlength="17" required='true'>
                         </td>
                      </tr>
                      <tr>
                         <td id="attr">Re-enter Account Number : </td>
                         <td>
-                           <input type="text" name="re_account_no" id="re_account_no" required>
+                           <input type="text" name="re_account_no" id="re_account_no" maxlength="17" required='true'>
                         </td>
                      </tr>
                      <tr>
@@ -471,7 +471,7 @@
                      <tr>
                         <td id="attr">Enter IFS Code :</td>
                         <td>
-                           <input type="text" name="IFSC_code" id="ifsc" maxlength="11" minlength="11" required>
+                           <input type="text" name="IFSC_code" id="ifsc" maxlength="11" minlength="11" required='true'>
                         </td>
                      </tr>
                      <tr>

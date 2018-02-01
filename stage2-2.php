@@ -1,92 +1,99 @@
 <?php
 
 session_start();
-print_r($_SESSION['eid']);
 $emp_id = $_SESSION['eid'];
-if(isset($_POST['submit']))
+if(isset($emp_id))
 {
-	$faculty_type = $_POST['faculty_type'];
-	$appointment_type = $_POST['appointment_type'];
-	$Dept_name = $_POST['Dept_name'];
-	$Emp_id = $_POST['Emp_id'];
-	$Library_card_no = $_POST['Library_card_no'];
-	if(!empty($_POST['designation']))
+
+	if(isset($_POST['submit']))
 	{
-		$designation = [];
-		foreach ($_POST['designation'] as $key => $value) 
+		$faculty_type = $_POST['faculty_type'];
+		$appointment_type = $_POST['appointment_type'];
+		$Dept_name = $_POST['Dept_name'];
+		$Emp_id = $_POST['Emp_id'];
+		$Library_card_no = $_POST['Library_card_no'];
+		if(!empty($_POST['designation']))
 		{
-			array_push($designation, $value);
+			$designation = [];
+			foreach ($_POST['designation'] as $key => $value) 
+			{
+				array_push($designation, $value);
+			}
+		}
+	/*	if(!empty($_POST['other_designation']))
+		{
+			$_SESSION['other_designation'] = $_POST['other_designation'];
+		}
+	*/	if(!empty($_POST['high_qualif']))
+		{
+			$high_qualif = $_POST['high_qualif'];
+		}
+		if(!empty($_POST['other_high_qualif']))
+		{
+			$other_high_qualif = $_POST['other_high_qualif'];
 		}
 	}
-/*	if(!empty($_POST['other_designation']))
+
+		/*$faculty_type = $_SESSION['faculty_type'];
+		$appointment_type = $_SESSION['appointment_type'];
+		$Dept_name = $_SESSION['Dept_name'];
+		$Emp_id = $_SESSION['Emp_id'];
+		$Library_card_no = $_SESSION['Library_card_no'];
+		$designation = $_SESSION['designation'];*/
+		$designation = implode(',', $_POST['designation']);
+
+	$conn = mysqli_connect("localhost" , "root" ,"");
+
+	if(!$conn)
 	{
-		$_SESSION['other_designation'] = $_POST['other_designation'];
+		echo "error in connection";
 	}
-*/	if(!empty($_POST['high_qualif']))
+	else
 	{
-		$high_qualif = $_POST['high_qualif'];
+
+		mysqli_select_db($conn,"college");
+			
+			//insert into staff_emp_details
+		$sql = "insert into staff_emp_details (emp_id,faculty_type,appointment_type,Library_card_no,Dept_name,high_qualif,other_high_qualif) values('$emp_id','$faculty_type','$appointment_type','$Library_card_no','$Dept_name','$high_qualif','$other_high_qualif')";
+
+		if(mysqli_query($conn,$sql))
+		{
+		echo "row inserted in staff_emp_details table. ";
+		echo "<br><br>";
+		}
+		else
+		{
+		echo "error in insertion";
+		echo "<br><br>";
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		echo "<br><br>";
+		}
+
+			
+			//insert into designation
+		$sql = "insert into designation (emp_id,designation) values('$emp_id','". $designation ."')";
+
+		if(mysqli_query($conn,$sql))
+		{
+		echo "row inserted in designation table.";
+		echo "<br><br>";
+		}
+		else
+		{
+		echo "error in insertion";
+		echo "<br><br>";
+		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		echo "<br><br>";
+		}
+
 	}
-	if(!empty($_POST['other_high_qualif']))
-	{
-		$other_high_qualif = $_POST['other_high_qualif'];
-	}
-}
 
-//print_r($_SESSION);
-
-	/*$faculty_type = $_SESSION['faculty_type'];
-	$appointment_type = $_SESSION['appointment_type'];
-	$Dept_name = $_SESSION['Dept_name'];
-	$Emp_id = $_SESSION['Emp_id'];
-	$Library_card_no = $_SESSION['Library_card_no'];
-	$designation = $_SESSION['designation'];*/
-	$designation = implode(',', $_POST['designation']);
-
-$conn = mysqli_connect("localhost" , "root" ,"");
-
-if(!$conn)
-{echo "error in connection";}
-else
-{echo " connection established";
-echo "<br>";
-}
-
-mysqli_select_db($conn,"college");
-	
-	//insert into staff_emp_details
-$sql = "insert into staff_emp_details (emp_id,faculty_type,appointment_type,Library_card_no,Dept_name,high_qualif,other_high_qualif) values('$emp_id','$faculty_type','$appointment_type','$Library_card_no','$Dept_name','$high_qualif','$other_high_qualif')";
-
-if(mysqli_query($conn,$sql))
-{
-echo "row inserted in staff_emp_details table. ";
-echo "<br><br>";
-}
-else
-{
-echo "error in insertion";
-echo "<br><br>";
-echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-echo "<br><br>";
-}
-
-	
-	//insert into designation
-$sql = "insert into designation (emp_id,designation) values('$emp_id','". $designation ."')";
-
-if(mysqli_query($conn,$sql))
-{
-echo "row inserted in designation table.";
-echo "<br><br>";
 }
 else
 {
-echo "error in insertion";
-echo "<br><br>";
-echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-echo "<br><br>";
+	//redirect to login or signup
+	print("Not Logged In");
 }
-
-
 
 ?>
 
