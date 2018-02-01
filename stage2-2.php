@@ -1,17 +1,16 @@
 <?php
-
 session_start();
-$emp_id = $_SESSION['eid'];
-if(isset($emp_id))
+$eid = $_SESSION['eid'];
+if(isset($eid))
 {
 
-	if(isset($_POST['submit']))
+	if(isset($_POST['submit_stage2-1']))
 	{
 		$faculty_type = $_POST['faculty_type'];
 		$appointment_type = $_POST['appointment_type'];
 		$Dept_name = $_POST['Dept_name'];
-		$Emp_id = $_POST['Emp_id'];
 		$Library_card_no = $_POST['Library_card_no'];
+		$college_emp_id = $_POST['college_emp_id'];
 		if(!empty($_POST['designation']))
 		{
 			$designation = [];
@@ -19,80 +18,63 @@ if(isset($emp_id))
 			{
 				array_push($designation, $value);
 			}
+			// print_r($designation);
 		}
-	/*	if(!empty($_POST['other_designation']))
+		if(!empty($_POST['other_designation']))
 		{
-			$_SESSION['other_designation'] = $_POST['other_designation'];
+			$other_designation = explode(',',$_POST['other_designation']);
+			$designation = array_merge($designation,$other_designation);
+			print_r($designation);
 		}
-	*/	if(!empty($_POST['high_qualif']))
+		if(!empty($_POST['highest_qualif']))
 		{
-			$high_qualif = $_POST['high_qualif'];
+			$highest_qualif = $_POST['highest_qualif'];
 		}
-		if(!empty($_POST['other_high_qualif']))
+		if(!empty($_POST['other_specialization']))
 		{
-			$other_high_qualif = $_POST['other_high_qualif'];
+			$other_specialization = explode(',',$_POST['other_specialization']);
 		}
-	}
+		$conn = mysqli_connect("localhost" , "root" ,"");
 
-		/*$faculty_type = $_SESSION['faculty_type'];
-		$appointment_type = $_SESSION['appointment_type'];
-		$Dept_name = $_SESSION['Dept_name'];
-		$Emp_id = $_SESSION['Emp_id'];
-		$Library_card_no = $_SESSION['Library_card_no'];
-		$designation = $_SESSION['designation'];*/
-		$designation = implode(',', $_POST['designation']);
-
-	$conn = mysqli_connect("localhost" , "root" ,"");
-
-	if(!$conn)
-	{
-		echo "error in connection";
-	}
-	else
-	{
-
-		mysqli_select_db($conn,"college");
-			
-			//insert into staff_emp_details
-		$sql = "insert into staff_emp_details (emp_id,faculty_type,appointment_type,Library_card_no,Dept_name,high_qualif,other_high_qualif) values('$emp_id','$faculty_type','$appointment_type','$Library_card_no','$Dept_name','$high_qualif','$other_high_qualif')";
-
-		if(mysqli_query($conn,$sql))
+		if(!$conn)
 		{
-		echo "row inserted in staff_emp_details table. ";
-		echo "<br><br>";
+			$code = 500;
+			header("Location: alert.php?code=$code");
 		}
 		else
 		{
-		echo "error in insertion";
-		echo "<br><br>";
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		echo "<br><br>";
-		}
 
+			mysqli_select_db($conn,"college");
+				
+				//insert into staff_emp_details
+			$sql = "insert into staff_emp_details (emp_id,faculty_type,appointment_type,Library_card_no,college_emp_id,Dept_name,highest_qualif) values('$eid','$faculty_type','$appointment_type','$Library_card_no','$college_emp_id','$Dept_name','$highest_qualif')";
+
+			if(!mysqli_query($conn,$sql))
+			{
+					//throw error
+				$result = mysqli_error($conn);
+				print($result);
+			}
 			
-			//insert into designation
-		$sql = "insert into designation (emp_id,designation) values('$emp_id','". $designation ."')";
+				//insert into designation
+			foreach ($designation as $key => $desig) {
+				$sql = "insert into designation (emp_id,designation) values('$eid','$desig')";
+				if(!mysqli_query($conn,$sql))
+				{
+					//error handling
+					$result = mysqli_error($conn);
+					print($result);
+				}
+			}
 
-		if(mysqli_query($conn,$sql))
-		{
-		echo "row inserted in designation table.";
-		echo "<br><br>";
 		}
-		else
-		{
-		echo "error in insertion";
-		echo "<br><br>";
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		echo "<br><br>";
-		}
-
 	}
 
 }
 else
 {
-	//redirect to login or signup
-	print("Not Logged In");
+	$code = 403;
+	header("Location: alert.php?code=$code");
 }
 
 ?>
@@ -115,7 +97,10 @@ else
 		width: 16.66%;
 		height: 30px;
 		background-color: #4CAF50;
-}
+	}
+	select{
+		width : 100%;
+	}
 </style>
 <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 <script language='javascript'>
@@ -589,8 +574,9 @@ else
 			cell9.appendChild(element9);
 			
 			var cell10 = row.insertCell(10);
-			var element10 = document.createElement('input');               //field for url
-			element10.type = 'text';
+			var element10 = document.createElement('input');//field for url
+			element10.type = 'file';
+			element10.accept = 'image/*';
 			element10.id=id+11;
 			element10.name='qualific_details_'+rowCount+'[]';
 			element10.placeholder='Proof';
@@ -665,6 +651,7 @@ else
 			var cell6 = row.insertCell(6);
 			var element6 = document.createElement('input');                 //text field for year
 			element6.type = 'file';
+			element6.accept = 'image/*';
 			element6.id=rid+7;
 			element6.name='exp_details_'+rowCount+'[]';
 			element6.required=true;
@@ -923,8 +910,8 @@ else
 			var cell7 = row.insertCell(7);
 			var element7 = document.createElement('input');               //text field for impact
 			element7.type ='file';
+			element7.accept = 'image/*';
 			element7.name = 'fileToUpload[]';
-			element7.accept = '.png';
 			element7.id=t9id+8;
 			element7.name='appointment_details_'+rowCount+'[]';
 			element7.required=true;
@@ -971,7 +958,7 @@ else
 			var element3 = document.createElement('input');               //text field for impact
 			element3.type ='file';
 			element3.name = 'fileToUpload[]';
-			element3.accept = '.png';
+			element3.accept = 'image/*';
 			element3.id=t10id+4;
 			element3.name='overall_exp_details_'+rowCount+'[]';
 			element3.required=true;
@@ -992,7 +979,7 @@ else
 			var element5 = document.createElement('input');               //text field for impact
 			element5.type ='file';
 			element5.name = 'fileToUpload[]';
-			element5.accept = '.png';
+			element5.accept = 'image/*';
 			element5.id=t10id+6;
 			element5.name='overall_exp_details_'+rowCount+'[]';
 			element5.required=true;
@@ -1013,7 +1000,7 @@ else
 			var element7 = document.createElement('input');               //text field for impact
 			element7.type ='file';
 			element7.name = 'fileToUpload[]';
-			element7.accept = '.png';
+			element7.accept = 'image/*';
 			element7.id=t10id+8;
 			element7.name='overall_exp_details_'+rowCount+'[]';
 			element7.required=true;
@@ -1296,7 +1283,7 @@ function addrow5(tableID) {
 			var element7 = document.createElement('input');               //text field for impact
 			element7.type ='file';
 			element7.name ='fileToUpload[]';
-			element7.accept = '.png';
+			element7.accept = 'image/*';
 			element7.id=t6id+8;
 			element7.name= 'train_conf_'+rowCount+'[]';
 			element7.required=true;
@@ -1361,7 +1348,7 @@ function addrow5(tableID) {
 			var element5 = document.createElement('input');               //text field for impact
 			element5.type ='file';
 			element5.name = 'fileToUpload[]';
-			element5.accept = '.png';
+			element5.accept = 'image/*';
 			element5.id=t7id+6;
 			element5.name='organization_'+rowCount+'[]';
 			element5.required=true;
@@ -1435,7 +1422,6 @@ function addrow5(tableID) {
 			element6.type = 'date';
 			element6.id=t8id+7;
 			element6.name= 'projects_guided_'+rowCount+'[]';
-			element6.placeholder='';
 			element6.required=true;
 			element6.disabled=true;
 			cell6.appendChild(element6);
@@ -1463,8 +1449,8 @@ function addrow5(tableID) {
 			option3.value = "P.G.";
 			
 			var option4 = document.createElement("option");              //option none  
-			option4.innerHTML = "Ph.G.";
-			option4.value = "Ph.G.";
+			option4.innerHTML = "Ph.D";
+			option4.value = "Ph.D";
 			
 			
 			element7.appendChild(option1);
@@ -1564,10 +1550,10 @@ function addrow5(tableID) {
 <form id="form2-2" action="stage3.php" method="POST" enctype="multipart/form-data">	
 <div id="tab0">
 <h2 style="text-align: center">Qualification Details</h2>
-<table align='center' border='1' id='table2-1' name="qualific_details" style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-1' name="qualific_details" style="table-layout: fixed; width:99%">
 <tr>
- <th style="width:6%"></th>
- <th style="width:8%">Sr.No.</th>
+ <th style="width:4%"></th>
+ <th style="width:6%">Sr.No.</th>
  <th>Qualification</th>
  <th>Branch</th>
  <th>Specialization</th>
@@ -1576,7 +1562,7 @@ function addrow5(tableID) {
  <th>CGPA</th>
  <th>Class Obtained</th>
  <th>Passing Year</th>
- <th>Attach Proof</th>
+ <th>Proof</th>
  </tr>
 </table>
 <p class="inline" style="text-align: center">
@@ -1620,10 +1606,10 @@ function addrow5(tableID) {
 </center>-->
 <div id="">
 <h2 style="text-align: center;">Experience Details</h2>
-<table align='center' border='1' id='table2-2' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-2' style="table-layout: fixed; width:99%">
 <tr>
- <th style="width:6%"></th>
- <th style="width:8%">Sr.No.</th>
+ <th style="width:4%"></th>
+ <th style="width:6%">Sr.No.</th>
  <th>Organzation Name</th>
  <th >Designation</th>
  <th >Date of Joining</th>
@@ -1649,7 +1635,7 @@ function addrow5(tableID) {
 
 <div id="tab3">
 <h2 style="text-align: center;">Appointment Approval Details </h2>
-<table align='center' border='1' id='table2-9' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-9' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
@@ -1658,7 +1644,7 @@ function addrow5(tableID) {
 <th>Nature Of Appointment</th>
 <th >USSC Approved Date</th>
 <th >USSC Approved Reference Number</th>
-<th>Attach Proof</th>
+<th>Proof</th>
 </tr>
 </table>
 <p class="inline" style="text-align: center">
@@ -1671,7 +1657,7 @@ function addrow5(tableID) {
 
 <div id="tab3">
 <h2 style="text-align: center;">Overall Experience Details </h2>
-<table align='center' border='1' id='table2-10' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-10' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
@@ -1680,7 +1666,7 @@ function addrow5(tableID) {
 <th>Industrial Experience in Years</th>
 <th>Attach Proof</th>
 <th>Research Experience in Years</th>
-<th>Attach Proof</th>
+<th>Proof</th>
 </tr>
 </table>
 <p class="inline" style="text-align: center">
@@ -1699,7 +1685,7 @@ function addrow5(tableID) {
 <!--jaya-->
 <div id="tab1">
 <h2 style="text-align: center;">Subjects Taught</h2>
-<table align='center' border='1' id='table2-3' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-3' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
@@ -1721,13 +1707,13 @@ function addrow5(tableID) {
 
 <div id="tab2">
 <h2 style="text-align: center">Professional Membership Details</h2>
-<table align='center' border='1' id='table2-4' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-4' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
  <th>Membership Category</th>
  <th>Membership Number</th>
- <th>Body Of organization_</th>
+ <th>Body Of Organization</th>
 </tr>
 </table>
 
@@ -1744,7 +1730,7 @@ function addrow5(tableID) {
 -->
 <div id="tab3">
 <h2 style="text-align: center;">Interaction With Outside World </h2>
-<table align='center' border='1' id='table2-5' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-5' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
@@ -1762,7 +1748,7 @@ function addrow5(tableID) {
 
 <div id="tab4">
 <h2 style="text-align: center;">Training Courses/ Seminar/ Workshop/ Conference<br/>ATTENDED</h2>
-<table align='center' border='1' id='table2-6' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-6' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
@@ -1782,7 +1768,7 @@ function addrow5(tableID) {
 
 <div id="tab5">
 	<h2 style="text-align: center;">Training Courses/ Seminar/ Workshop/ Conference<br/>organized</h2>
-<table align='center' border='1' id='table2-7' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-7' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
@@ -1800,7 +1786,7 @@ function addrow5(tableID) {
 </div>
 
 <div id="tab6">
-<table align='center' border='1' id='table2-8' style="table-layout: fixed; width:95%">
+<table align='center' border='1' id='table2-8' style="table-layout: fixed; width:99%">
 <h2 style="text-align: center;">Project Guided</h2>
 <tr>
  <th style="width:6%"></th>

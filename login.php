@@ -111,7 +111,7 @@
 					{
 						session_start();
 						$_SESSION['eid'] = $result['emp_id'];
-						header( "refresh:0 ;url=home.php" ); 
+                  header("Location: home.php");
 					}
 					else
 					{

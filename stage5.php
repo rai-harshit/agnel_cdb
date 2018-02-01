@@ -484,25 +484,9 @@ print_r($_SESSION);
    </header>
    </div>
 <div class="main_body" style="margin-top: 50px">  
-<div id="upleft"> 
-<div>
-</br>
-<div style="  padding-left:20px; margin-left:20px;
-   border : thin solid black;border-size:1.5px;"></br>
-LINKS
-</br></br>	
-	<a href="stage1.php">Staff Details</a></br>
-    </br><a href="stage2.php">Staff Employment Details</a></br>
-	</br><a href="stage3.php">Responsibilities Handled</a></br>
-	</br><a href="stage4.php">Research And Development</a></br>
-	</br><a href="stage5.php"><b>Publication Details</b></a></br></br>
-</div>
-	<br>
-</div>
-</div>
-<form id='form5' action='stage6.php' style="padding-left:350px;" class='form5' method="POST" > 
+<form id='form5' action='stage6.php' class='form5' method="POST" > 
 <h2 style="text-align: center">Paper Publication/Presentation</h2>
-<table align='center' border='1' id='table1'  style="table-layout: fixed; width:98%" >
+<table align='center' border='1' id='table2-1' name="qualific_details" style="table-layout: fixed; width:99%" >
 <tr>
  <th style="width: 6%"></th>
  <th style="width: 8%">Sr.No.</th>

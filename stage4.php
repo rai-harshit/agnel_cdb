@@ -1,62 +1,54 @@
 <?php
 
 session_start();
-print_r($_SESSION['eid']);
-$emp_id = $_SESSION['eid'];
-
-if(!empty($_POST['responsibilities']))
+if(isset($_SESSION['eid']))
 {
-	$_SESSION['responsibilities'] = [];
-
-	foreach ($_POST['responsibilities'] as $key => $value) 
+	if(isset($_POST['submit']))
 	{
-		array_push($_POST['responsibilities'],$value);
+		$emp_id = $_SESSION['eid'];
+		$responsibilities = $_POST['responsibilities'];
+
+		if(!empty($_POST['other_resp']))
+		{
+			$other_resp = explode(',',$_POST['other_resp']);
+			$responsibilities = array_merge($responsibilities,$other_resp);
+			//print_r($responsibilities);
+		}
+
+		$conn = mysqli_connect("localhost" , "root" ,"");
+
+		if(!$conn)
+		{
+			$code = 500;
+			header("Location: alert.php?code=$code");
+		}
+
+		mysqli_select_db($conn,"college");
+		//insert into other_responsibility
+		foreach ($responsibilities as $key => $value) 
+		{
+			$sql1 = "insert into other_responsibility (emp_id,responsibility) values('$emp_id','$value') ";
+
+			$insert_result1 = mysqli_query($conn,$sql1);
+
+			if($insert_result1)
+			{
+				//print("Submission Done");
+			}
+			else
+			{
+				$code = 500;
+				header("Location: alert.php?code=$code");
+			}
+		}
 	}
 }
-
-if(!empty($_POST['other_resp']))
-{
-	array_push($_POST['responsibilities'],$_POST['other_resp']);
-}
-
-$responsibility = implode(',', $_POST['responsibilities']);
-
-//print_r($_SESSION);
-
-
-$conn = mysqli_connect("localhost" , "root" ,"");
-
-if(!$conn)
-{
-	echo "error in connection";
-}
 else
 {
-	echo " connection established";
+	$code = 403;
+	header("Location: alert.php?code=$code");
 }
 
-mysqli_select_db($conn,"college");
-//insert into other_responsibility
-$sql1 = "insert into other_responsibility (emp_id,responsibilities) values('$emp_id','". $responsibility ."') ";
-
-//echo $sql1;
-echo "<br><br>";
-
-$insert_result1 = mysqli_query($conn,$sql1);
-
-echo($insert_result1);
-
-if($insert_result1)
-{
-	echo "row inserted in other_responsibility";
-	echo "<br>";
-}
-else
-{
-	echo "error in insertion";
-	echo "<br><br>";
-	echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
-}
 
 ?>
 
@@ -532,23 +524,9 @@ else
    </header>
    </div>
 <div class="main_body" style="margin-top: 50px">  
-<div id="upleft"> 
-<div>
-<div style="padding-left:20px; margin-left:20px;border : thin solid black;border-size:1.5px;"></br>
-LINKS
-</br></br>	
-	<a href="stage1.php">Staff Details</B></a></br>
-    </br><a href="stage2.php">Staff Employment Details</a></br>
-	</br><a href="stage3.php">Responsibilities Handled</a></br>
-	</br><a href="stage4.php"><b>Research And Development</b></a></br>
-	</br><a href="stage5.php">Publication Details</a></br></br>
-</div>
-	<br>
-</div>
-</div>
-<form id='form4' action="stage5.php" method="POST" style="padding-left:350px;" class='form4' > 
+<form id='form4' action="stage5.php" method="POST" class='form4' > 
 <h2 style="text-align: center"> Internal Projects</h2>
-<table border='1' id='table4-1' style="table-layout: fixed; width:98%" >
+<table align='center' border='1' id='table4-1' name="r&d" style="table-layout: fixed; width:99%" >
 <tr>
  <th rowspan='2' style="width: 6%"></th>
  <th rowspan='2' style="width: 8%">Sr.No.</th>

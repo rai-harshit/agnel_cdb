@@ -10,78 +10,76 @@ session_start();
 
 if(isset($_POST['submit']))
 {
-	$last_name = $_POST['last_name'];
-	$first_name = $_POST['first_name'];
-	$middle_name = $_POST['middle_name'];
-	$fathers_name = $_POST['fathers_name'];
-	$mothers_name = $_POST['mothers_name'];
-	$Gender = $_POST['Gender'];
-	$marital_status = $_POST['marital_status'];
-
-	if($marital_status == "Married")
-	{
-		$spouse_name = $_POST['spouse_name'];	
-	}
-
-
-	$DOB = $_POST['DOB'];
-	$age = 00;
-	$residential_no = $_POST['residential_no'];
-	$mobile_no = $_POST['mobile_no'];
-	$email = $_POST['email'];
-	$alt_email = $_POST['alt_email'];
-	$current_address = $_POST['current_address'];
-	$permanent_address = $_POST['permanent_address'];
-
-
-	$aadhar = $_POST['aadhar'];
-	$pf_no = $_POST['pf_no'];
-	$pan_no = $_POST['pan_no'];
-	$passport_no = $_POST['passport_no'];
-
-
-	$nationality = $_POST['nationality'];
-	if($nationality == "others")
-	{
-		$nationality = $_POST['other_nationality'];
-	}
-
-	$religion = $_POST['religion'];
-	if($religion == "others")
-	{
-		$religion = $_POST['other_religion'];
-	}
-
-	$category = $_POST['category'];
-	if($category == "others")
-	{
-		$category = $_POST['other_category'];
-	}
-
-	$caste = $_POST['caste'];
-	$bank_name = $_POST['bank_name'];
-	$acc_no = $_POST['acc_no'];
-	$re_account_no = $_POST['re_account_no'];
-	$bank_acc_holder_name = $_POST['bank_acc_holder_name'];
-	$IFSC_code = $_POST['IFSC_code'];
-	$branch = $_POST['branch'];
-	$form_16 = $_POST['form_16'];
-
-		$password_plainT = $_POST['password'];
-	}
-
-
-	$emp_id = $first_name.random_int(1000, 9999);
-
 	$conn = mysqli_connect("localhost" , "root" ,"");
 
 	if(!$conn)
 	{
-		//throw error
+		$code = 500;
+		header("Location: alert.php?code=$code");
 	}
 	else
 	{
 
+		$last_name = $_POST['last_name'];
+		$first_name = $_POST['first_name'];
+		$middle_name = $_POST['middle_name'];
+		$fathers_name = $_POST['fathers_name'];
+		$mothers_name = $_POST['mothers_name'];
+		$Gender = $_POST['Gender'];
+		$marital_status = $_POST['marital_status'];
+
+		if($marital_status == "Married")
+		{
+			$spouse_name = $_POST['spouse_name'];	
+		}
+
+
+		$DOB = $_POST['DOB'];
+		$age = 00;
+		$residential_no = $_POST['residential_no'];
+		$mobile_no = $_POST['mobile_no'];
+		$email = $_POST['email'];
+		$alt_email = $_POST['alt_email'];
+		$current_address = $_POST['current_address'];
+		$permanent_address = $_POST['permanent_address'];
+
+
+		$aadhar = $_POST['aadhar'];
+		$pf_no = $_POST['pf_no'];
+		$pan_no = $_POST['pan_no'];
+		$passport_no = $_POST['passport_no'];
+
+
+		$nationality = $_POST['nationality'];
+		if($nationality == "others")
+		{
+			$nationality = $_POST['other_nationality'];
+		}
+
+		$religion = $_POST['religion'];
+		if($religion == "others")
+		{
+			$religion = $_POST['other_religion'];
+		}
+
+		$category = $_POST['category'];
+		if($category == "others")
+		{
+			$category = $_POST['other_category'];
+		}
+
+		$caste = $_POST['caste'];
+		$bank_name = $_POST['bank_name'];
+		$acc_no = $_POST['acc_no'];
+		$re_account_no = $_POST['re_account_no'];
+		$bank_acc_holder_name = $_POST['bank_acc_holder_name'];
+		$IFSC_code = $_POST['IFSC_code'];
+		$branch = $_POST['branch'];
+		$form_16 = $_POST['form_16'];
+		$password_plainT = $_POST['password'];
+
+
+		$emp_id = $first_name.random_int(1000, 9999);
 		$options = [
 		    'cost' => 10,
 		];
@@ -98,7 +96,17 @@ if(isset($_POST['submit']))
 
 		mysqli_select_db($conn,"college");
 
-		//need to check the uniqueness of all the unique keys
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
+		//need to check the uniqueness of all the unique keys//
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////
 
 		//insert into user_accounts
 		$sql1 = "insert into user_accounts (email_id,password,emp_id,act_id) values ('$email','$hashed_pass','$emp_id','$acc_act_hash')";
@@ -160,45 +168,66 @@ if(isset($_POST['submit']))
 
 						// Check if $uploadOk is set to 0 by an error
 						if ($uploadOk == 0) {
-					    	echo "Sorry, your file was not uploaded.<br>";
-					    	// throw error
+					    	$code = 500;
+							header("Location: alert.php?code=$code");
 
 						// if everything is ok, try to upload file
 						} 
 						else {
 							$f_upload_result = move_uploaded_file($_FILES["fileToUpload"]["tmp_name"][$i],$saved_name);
-					    	if ($f_upload_result) 
-					    	{	
-					    		echo "File uploaded successfully<br>";
-					        	//successfull message
-					    	} else 
+					    	if (!$f_upload_result)
 					    	{
-					        	// throw error
+					        	$code = 500;
+								header("Location: alert.php?code=$code");
 					    	}
 						}
+
 					}
 				}
 				else
 				{
-					//throw error
+					$error = mysqli_error($conn);
+					if($error)
+					{
+						print($error);
+					}
+					else
+					{
+						$code = 500;
+						header("Location: alert.php?code=$code");
+					}
 				}
 
 			}
 			else
 			{
-				//throw error
+				$error = mysqli_error($conn);
+				if($error)
+				{
+					print($error);
+				}
+				else
+				{
+					$code = 500;
+					header("Location: alert.php?code=$code");
+				}
 			}
 		}
 		else
 		{
-			//throw error
+			$error = mysqli_error($conn);
+			if($error)
+			{
+				print($error);
+			}
+			else
+			{
+				$code = 500;
+				header("Location: alert.php?code=$code");
+			}
 		}
 
 		// DATABASE QUERIES END HERE
-
-
-
-
 
 		if($insert_result1 && $insert_result2 && $insert_result3 && $f_upload_result)
 		{
@@ -243,12 +272,16 @@ if(isset($_POST['submit']))
 			    echo 'Message has been sent';
 				header( "refresh:5; url=login.php" ); 
 			}
-
-		}
-		else{
-			echo("There is some error in your queries. Please debug the code.");
 		}
 	}
+}
+else
+{
+	$code = 403;
+	header("Location: alert.php?code=$code");
+}
+
+
 ?>
 
 

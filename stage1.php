@@ -1,3 +1,13 @@
+<?php 
+
+session_start();
+if(isset($_SESSION['eid']))
+{
+   $eid = $_SESSION['eid'];
+}
+
+?>
+
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
