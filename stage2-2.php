@@ -599,7 +599,7 @@ else
 			var cell0 = row.insertCell(0); 
 			var element0 = document.createElement('input');                //checkbox
 			element0.type = 'checkbox';
-			element0.name = 'exp_details_'+rowCount+'[]';
+			element0.name = 'experience_details_'+rowCount+'[]';
 			element0.id =rid+1;
 			cell0.appendChild(element0);
 			
@@ -613,7 +613,7 @@ else
 			var element2 = document.createElement('input');                 //text field for name       
 			element2.type = 'text';
 			element2.id=rid+3;
-			element2.name='exp_details_'+rowCount+'[]';
+			element2.name='experience_details_'+rowCount+'[]';
 			element2.placeholder='Organization Name';
 			element2.setAttribute("onchange",'javascript:check1(this)');
 			cell2.appendChild(element2);
@@ -622,7 +622,7 @@ else
 			var element3 = document.createElement('input');                  //text field for aurthor
 			element3.type='text';
 			element3.id=rid+4;
-			element3.name='exp_details_'+rowCount+'[]';
+			element3.name='experience_details_'+rowCount+'[]';
 			element3.placeholder='Desgination';
 			element3.required=true;
 			element3.disabled=true;
@@ -632,7 +632,7 @@ else
 			var element4 = document.createElement('input');                 //text field for publisher  
 			element4.type = 'Date';
 			element4.id=rid+5;
-			element4.name='exp_details_'+rowCount+'[]';
+			element4.name='experience_details_'+rowCount+'[]';
 			element4.placeholder='dd/mm/yyyy';
 			element4.required=true;
 			element4.disabled=true;
@@ -642,7 +642,7 @@ else
 			var element5 = document.createElement('input');                 //text field for year
 			element5.type = 'Date';
 			element5.id=rid+6;
-			element5.name='exp_details_'+rowCount+'[]';
+			element5.name='experience_details_'+rowCount+'[]';
 			element5.placeholder='dd/mm/yyyy';
 			element5.required=true;
 			element5.disabled=true;
@@ -653,141 +653,11 @@ else
 			element6.type = 'file';
 			element6.accept = 'image/*';
 			element6.id=rid+7;
-			element6.name='exp_details_'+rowCount+'[]';
+			element6.name='experience_details_'+rowCount+'[]';
 			element6.required=true;
 			element6.disabled=true;
 			cell6.appendChild(element6);
 			
-			/*var cell7 = row.insertCell(7);
-			var element7 = document.createElement('input');                  //text field for aurthor
-			element7.type='text';
-			element7.id=rid+8;
-			element7.name='exp_details_'+rowCount+'[]';
-			element7.placeholder='Pay Scale';
-			element7.required=true;
-			element7.disabled=true;
-			cell7.appendChild(element7);
-
-			var cell8 = row.insertCell(8);
-			var element8 = document.createElement('input');                  //text field for aurthor
-			element8.type='text';
-			element8.id=rid+9;
-			element8.name='exp_details_'+rowCount+'[]';
-			element8.placeholder='Grade Pay';
-			element8.required=true;
-			element8.disabled=true;
-			cell8.appendChild(element8);
-
-			var cell9 = row.insertCell(9);
-			var element9 = document.createElement('select');
-			element9.id=rid+10;
-			element9.name='exp_details_'+rowCount+'[]';
-			element9.required=true;
-			element9.disabled=true;
-			element9.setAttribute("onchange",'javascript:val(this)');
-
-			var option0 = document.createElement("option");
-			option0.innerHTML = "None";
-			option0.value = "";
-			option0.disabled=true;
-	        option0.selected=true;
-		    		
-		    var option1 = document.createElement("option");
-			option1.innerHTML = "USSC Approved";
-			option1.value = "USSC Approved";
-						
-			var option2 = document.createElement("option");
-            option2.innerHTML = "Regular";
-			option2.value = "Regular";
-			
-			var option3 = document.createElement("option");
-			option3.innerHTML = "Adhoc";
-			option3.value = "Adhoc";
-						
-			var option4 = document.createElement("option");
-            option4.innerHTML = "Visiting";
-			option4.value = "Visiting";
-			
-			var option5 = document.createElement("option");
-			option5.innerHTML = "Probation";
-			option5.value = "Probation";
-
-			element9.appendChild(option0);
-			element9.appendChild(option1);
-			element9.appendChild(option2);
-			element9.appendChild(option3);
-			element9.appendChild(option4);
-			element9.appendChild(option5);
-											
-			cell9.appendChild(element9);
-
-			var cell10 = row.insertCell(10);
-			var element10 = document.createElement('input');                 //text field for year
-			element10.type = 'Date';
-			element10.id=rid+11;
-			element10.name='exp_details_'+rowCount+'[]';
-			element10.placeholder='dd/mm/yyyy';
-			element10.required=true;
-			element10.disabled=true;
-			cell10.appendChild(element10);
-
-			var cell11 = row.insertCell(11);
-			var element11 = document.createElement('input');
-			element11.type = 'number';
-			element11.id=rid+12;
-			element11.name='exp_details_'+rowCount+'[]';
-			element11.placeholder='12345';
-			element11.required=true;
-			element11.disabled=true;
-			cell11.appendChild(element11);
-
-			var cell12 = row.insertCell(12);
-			var element12 = document.createElement('input');                 //text field for year
-			element12.type = 'file';
-			element12.id=rid+13;
-			element12.name='exp_details_'+rowCount+'[]';
-			element12.required=true;
-			element12.disabled=true;
-			cell12.appendChild(element12);
-
-			var cell13 = row.insertCell(13);
-			var element13 = document.createElement('input');
-			element13.type = 'text';
-			element13.id=rid+14;
-			element13.name='exp_details_'+rowCount+'[]';
-			element13.placeholder='yyyy';
-			element13.required=true;
-			element13.disabled=true;
-			cell13.appendChild(element13);
-
-			var cell14 = row.insertCell(14);
-			var element14 = document.createElement('input');
-			element14.type = 'text';
-			element14.id=rid+15;
-			element14.name='exp_details_'+rowCount+'[]';
-			element14.placeholder='yyyy';
-			element14.required=true;
-			element14.disabled=true;
-			cell14.appendChild(element14);
-
-			var cell15 = row.insertCell(15);
-			var element15 = document.createElement('input');
-			element15.type = 'text';
-			element15.id=rid+16;
-			element15.name='exp_details_'+rowCount+'[]';
-			element15.placeholder='yyyy';
-			element15.required=true;
-			element15.disabled=true;
-			cell15.appendChild(element15);
-
-			var cell16 = row.insertCell(16);
-			var element16 = document.createElement('input');                 //text field for year
-			element16.type = 'file';
-			element16.id=rid+17;
-			element16.name='exp_details_'+rowCount+'[]';
-			element16.required=true;
-			element16.disabled=true;
-			cell16.appendChild(element16);*/
 
 		rid=rid+7;
 		}	

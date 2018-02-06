@@ -7,11 +7,9 @@ if(isset($_SESSION['eid']))
 	{
 		error_reporting(E_ERROR | E_PARSE);
 		//print_r($_FILES);
-		echo("<br>");
 		/* FILE UPLOADING BEGINS HERE */
 		$file_count = count($_FILES);
-		//print($file_count);
-		echo("<br>");
+		//print($file_count);;
 		//pc = proof_count
 		$qualification_pc = 0;
 		$experience_pc = 0;
@@ -28,7 +26,7 @@ if(isset($_SESSION['eid']))
 				$qualification_pc++;
 			}
 
-			if(strpos($key,'exp_details_') !== false)
+			if(strpos($key,'experience_details_') !== false)
 			{
 				$experience_pc++;
 			}	
@@ -53,7 +51,7 @@ if(isset($_SESSION['eid']))
 		$img_arr = [];
 		$type_identify = [];
 
-		
+		//print_r($_FILES);
 		if($qualification_pc>0)
 		{
 			for($itr=0; $itr<$qualification_pc; $itr++)
@@ -68,8 +66,8 @@ if(isset($_SESSION['eid']))
 		{
 			for($itr=0; $itr<$experience_pc; $itr++)
 			{
-				array_push($img_arr, 'exp_proof_'.($itr+1));
-				array_push($type_identify, 'exp_details_'.($itr+1));
+				array_push($img_arr, 'experience_proof_'.($itr+1));
+				array_push($type_identify, 'experience_details_'.($itr+1));
 			}
 
 		}
@@ -88,7 +86,7 @@ if(isset($_SESSION['eid']))
 		{
 			for($itr=0; $itr<$overall_experience_pc; $itr++)
 			{
-				array_push($img_arr, 'allExp_proof_'.($itr+1));
+				array_push($img_arr, 'overall_exp_proof_'.($itr+1));
 				array_push($type_identify, 'overall_exp_details_'.($itr+1));
 			}
 		}
@@ -113,16 +111,9 @@ if(isset($_SESSION['eid']))
 
 		}
 
-
 		for($i = 0; $i<$file_count; $i++) 
 		{
 			$target_dir = "uploads/";
-
-			if($overall_experience_pc>0)
-			{
-
-			}
-
 			$target_file = $target_dir . basename($_FILES[$type_identify[$i]]["name"][0]);
 			$path_parts = pathinfo($target_file);
 			$file_extension = $path_parts['extension'];
@@ -161,7 +152,6 @@ if(isset($_SESSION['eid']))
 			{
 				//handle error
 	    		//echo "Sorry, your file was not uploaded.<br>";
-				// if everything is ok, try to upload file
 			}
 			else 
 			{
@@ -176,6 +166,65 @@ if(isset($_SESSION['eid']))
 	        		$code = 500;
 					header("Location: alert.php?code=$code");
 	    		}
+			}
+			if(strpos($type_identify[$i],"overall_exp_details_") !== false)
+			{
+				for($j=1;$j<3;$j++)
+				{
+					$target_file = $target_dir . basename($_FILES[$type_identify[$i]]["name"][$j]);
+					$path_parts = pathinfo($target_file);
+					$file_extension = $path_parts['extension'];
+					$saved_name = $target_dir.$img_arr[$i].'-'.($j+1).'_'.$eid.'.'.$file_extension;
+					$uploadOk = 1;
+					$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+						// Check if image file is a actual image or fake image
+			    	$check = getimagesize($_FILES[$type_identify[$i]]["tmp_name"][$j]);
+			    	if($check !== false) 
+			    	{
+			        	//echo "File is an image - " . $check["mime"] . ".<br>";
+			        	$uploadOk = 1;
+			    	} 
+			    	else 
+			    	{
+			    		//handle error
+			        	//echo "File is not an image.<br>";
+			        	$uploadOk = 0;
+			    	}
+						// Check if file already exists
+					if (file_exists($saved_name)) 
+					{
+						//handle error
+			    		//echo "Sorry, file already exists.<br>";
+			    		$uploadOk = 0;
+					}
+						// Check file size
+					if ($_FILES["fileToUpload"]["size"][$i] > 1000000) 
+					{
+						//handle error
+			    		//echo "Sorry, your file is too large.<br>";
+			    		$uploadOk = 0;
+					}
+						// Check if $uploadOk is set to 0 by an error
+					if ($uploadOk == 0) 
+					{
+						//handle error
+			    		//echo "Sorry, your file was not uploaded.<br>";
+					}
+					else 
+					{
+			    		if (move_uploaded_file($_FILES[$type_identify[$i]]["tmp_name"][$j],$saved_name)) 
+			    		{
+			    			//successful
+			    			//echo("Successful");
+
+			    		} 
+			    		else 
+			    		{
+			        		$code = 500;
+							header("Location: alert.php?code=$code");
+			    		}
+					}
+				}
 			}
 		}
 
@@ -253,28 +302,7 @@ if(isset($_SESSION['eid']))
 				array_push($projects_guided,$final[$key]);
 			}
 		}
-		/*
-		print_r($qualific_details);
-		echo "<br><br>";
 
-		print_r($subs_taught);
-		echo "<br><br>";
-
-		print_r($prof_memship);
-		echo "<br><br>";
-
-		print_r($interact_outside);
-		echo "<br><br>";
-
-		print_r($train_conf);
-		echo "<br><br>";
-	*/
-		//print_r($organization);
-		//echo "<br><br>";
-	/*
-		print_r($projects_guided);
-		echo "<br><br>";
-		*/
 		$qd_itr = 9;
 		$ed_itr = 5;
 		$st_itr = 5;
@@ -293,26 +321,8 @@ if(isset($_SESSION['eid']))
 		$org_rcount = count($organization)/$org_itr;
 		$pg_rcount = count($projects_guided)/$pg_itr;
 
-		/*
-		print($tc_rcount);
-		print($qd_rcount);
-		print($st_rcount);
-		print($pm_rcount);
-		print($io_rcount);
-		print($tc_rcount);
-		print($org_rcount);
-		print($pg_rcount);
-		echo "<br>";
-		*/
 		$conn = mysqli_connect("localhost" , "root" ,"");
-
-		/*if(!$conn)
-		{echo "error in connection";}
-		else
-		{echo " connection established";} */
-
 		mysqli_select_db($conn,"college");
-
 		
 		// insert into qualification details
 		if($qd_rcount > 0)
@@ -328,8 +338,6 @@ if(isset($_SESSION['eid']))
 
 			for($i=1;$i<=$qd_rcount;$i++)
 			{
-				//print_r(${"qualific_details_$i"});
-				//echo "<br>";
 				$_SESSION["qd_$i"] = ${"qualific_details_$i"};
 				$qd["$i"] = $_SESSION["qd_$i"]; 
 			}
