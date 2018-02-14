@@ -1,9 +1,9 @@
 <?php
 session_start();
-$eid = $_SESSION['eid'];
-if(isset($eid))
-{
 
+if(isset($_SESSION['eid']))
+{
+	$eid = $_SESSION['eid'];
 	if(isset($_POST['submit_stage2-1']))
 	{
 		$faculty_type = $_POST['faculty_type'];
@@ -478,7 +478,6 @@ else
 			var table = document.getElementById(tableID);   
 			var rowCount = table.rows.length;
 			var row = table.insertRow(rowCount);
-
 			var cell0 = row.insertCell(0);                              //checkbox
 			var element0 = document.createElement('input');
 			element0.type = 'checkbox';

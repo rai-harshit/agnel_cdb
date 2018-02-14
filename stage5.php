@@ -1,158 +1,176 @@
 <?php
 
+//error_reporting(E_ERROR | E_PARSE);
 session_start();
-print_r($_SESSION['eid']);
-$emp_id = $_SESSION['eid'];
-//print_r($_POST);
-error_reporting(E_ERROR | E_PARSE);
-
-$non_empty = [];
-$final = [];
-foreach ($_POST as $key => $value) 
+if(!isset($_SESSION['eid']))
 {
-	//echo($key);
-	foreach ($value as $inner_key => $inner_value) 
-	{
-		if(!empty($inner_value))
-		{	
-			array_push($non_empty,$key);
-			//print($inner_value);
-			//print("&nbsp;");
-			array_push($final, $inner_value);
-
-		}
-	}
-	//echo("<br>");
+	$code = 403;
+	header("Location: alert.php?code=$code");
 }
-
-/*
-print_r($final);
-echo "<br>";
-print_r($non_empty);
-*/
-
-$internal_proj = [];
-$external_proj = [];
-
-
-foreach ($non_empty as $key => $value) 
-{
-	if(strpos($value,'internal_proj_') !== false)
+else
+{	
+	if(isset($_POST))
 	{
-		array_push($internal_proj,$final[$key]);
-	}
-
-
-	if(strpos($value,'external_proj_') !== false)
-	{
-		array_push($external_proj,$final[$key]);
-	}
-
-}
-
-/*
-echo "<br>";
-print_r($internal_proj);
-echo "<br>";
-print_r($external_proj);
-*/
-
-$ip_itr = 7;
-$ep_itr = 11;
-
-$ip_rcount = floor(count($internal_proj)/$ip_itr);
-$ep_rcount = floor(count($external_proj)/$ep_itr);
-
-//print($ip_rcount);
-//print($ep_rcount);
-$conn = mysqli_connect("localhost" , "root" ,"");
-
-	if(!$conn)
-	{echo "error in connection";}
-	else
-	{echo " connection established";} 
-
-	mysqli_select_db($conn,"college");
-
-if($ip_rcount > 0)
-{
-	for($curr_row = 1; $curr_row <= $ip_rcount; $curr_row++)
-	{	
-		${"internal_proj_$curr_row"} = [];
-		for($i = ($ip_itr*($curr_row-1)); $i< ($ip_itr*($curr_row)) ; $i++)
+		$emp_id = $_SESSION['eid'];
+		$non_empty = [];
+		$final = [];
+		foreach ($_POST as $key => $value) 
 		{
-			array_push(${"internal_proj_$curr_row"}, $internal_proj[$i]);
-		}
-	}
-
-	for($i=1;$i<=$ip_rcount;$i++)
-	{
-
-		//print_r(${"internal_proj_$i"});
-		//echo "<br>";
-		$_SESSION["internal_proj_$i"] = ${"internal_proj_$i"};
-		$ip["$i"] = $_SESSION["internal_proj_$i"];
-	}
-	
-	for($i=1;$i<=$ip_rcount;$i++){
-			$query = "insert into internal_fundedproject(emp_id,Project_title,staff_name,student_name,department,year,project_cost,project_utility) values ('$emp_id','".$ip["$i"][0]."','".$ip["$i"][1]."','".$ip["$i"][2]."','".$ip["$i"][3]."','".$ip["$i"][4]."','".$ip["$i"][5]."','".$ip["$i"][6]."')";
-			//echo($query);
-			//echo("<br>");
-
-			if(mysqli_query($conn,$query))
+			if(count($value)>1)
 			{
-				echo "row in internal_fundedproject inserted";
-			}
-			else
-			{
-				echo "error in internal_fundedproject insertion";
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				foreach ($value as $inner_key => $inner_value) 
+				{
+					if(!empty($inner_value))
+					{	
+						array_push($non_empty,$key);
+						array_push($final, $inner_value);
+					}
+				}
 			}
 		}
-}
 
-
-
-
-if($ep_rcount > 0)
-{
-	for($curr_row = 1; $curr_row <= $ep_rcount; $curr_row++)
-	{	
-		${"external_proj_$curr_row"} = [];
-		for($i = ($ep_itr*($curr_row-1)); $i< ($ep_itr*($curr_row)) ; $i++)
+		if(count($non_empty)>0)
 		{
-			array_push(${"external_proj_$curr_row"}, $external_proj[$i]);
+			$internal_proj = [];
+			$external_proj = [];
+			foreach ($non_empty as $key => $value) 
+			{
+				if(strpos($value,'internal_proj_') !== false)
+				{
+					array_push($internal_proj,$final[$key]);
+				}
+
+
+				if(strpos($value,'external_proj_') !== false)
+				{
+					array_push($external_proj,$final[$key]);
+				}
+
+			}
+
+			$ip_itr = 7;
+			$ep_itr = 10;
+
+			$ip_rcount = floor(count($internal_proj)/$ip_itr);
+			$ep_rcount = floor(count($external_proj)/$ep_itr);
+
+			$conn = mysqli_connect("localhost" , "root" ,"");
+
+			if(!$conn)
+			{
+				//handle error
+			}
+
+			mysqli_select_db($conn,"college");
+
+			if($ip_rcount > 0)
+			{
+				for($curr_row = 1; $curr_row <= $ip_rcount; $curr_row++)
+				{	
+					${"internal_proj_$curr_row"} = [];
+					for($i = ($ip_itr*($curr_row-1)); $i< ($ip_itr*($curr_row)) ; $i++)
+					{
+						array_push(${"internal_proj_$curr_row"}, $internal_proj[$i]);
+					}
+				}
+
+				for($i=1;$i<=$ip_rcount;$i++)
+				{
+					$ip["$i"] = ${"internal_proj_$i"};
+				}
+				
+				for($i=1;$i<=$ip_rcount;$i++){
+					$query1 = "insert into internal_fundedproject(emp_id,Project_title,staff_name,student_name,department,year,project_cost,project_utility) values ('$emp_id','".$ip["$i"][0]."','".$ip["$i"][1]."','".$ip["$i"][2]."','".$ip["$i"][3]."','".$ip["$i"][4]."','".$ip["$i"][5]."','".$ip["$i"][6]."')";
+					if(mysqli_query($conn,$query1))
+					{
+						//successful
+					}
+					else
+					{
+						//handle error
+					}
+				}
+			}
+			if($ep_rcount > 0)
+			{
+				for($curr_row = 1; $curr_row <= $ep_rcount; $curr_row++)
+				{	
+					${"external_proj_$curr_row"} = [];
+					for($i = ($ep_itr*($curr_row-1)); $i< ($ep_itr*($curr_row)) ; $i++)
+					{
+						array_push(${"external_proj_$curr_row"}, $external_proj[$i]);
+					}
+				}
+
+				for($i=1;$i<=$ep_rcount;$i++)
+				{
+					$ep["$i"] = ${"external_proj_$i"};
+				}
+				for($i=1;$i<=$ep_rcount;$i++){
+					$query2 = "insert into external_fundedproject (emp_id,Project_title,principal,co_invest,duration_from,duration_to,project_cost,amount,grant_type,funding,patents_publication) values ('$emp_id','".$ep["$i"][0]."','".$ep["$i"][1]."','".$ep["$i"][2]."','".$ep["$i"][3]."','".$ep["$i"][4]."','".$ep["$i"][5]."','".$ep["$i"][6]."','".$ep["$i"][7]."','".$ep["$i"][8]."','".$ep["$i"][9]."')";
+					if(mysqli_query($conn,$query2))
+					{
+						$target_dir = "uploads/";
+						$target_file = $target_dir.basename($_FILES["external_proj_$i"]["name"][0]);
+						$path_parts = pathinfo($target_file);
+						$file_extension = $path_parts['extension'];
+						$saved_name = $target_dir."ext_project_$i".'_'.$emp_id.'.'.$file_extension;
+						$uploadOk = 1;
+						$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+						// Check if image file is a actual image or fake image
+					    $check = getimagesize($_FILES["external_proj_$i"]["tmp_name"][0]);
+					    if($check !== false) {
+					        //echo "File is an image - " . $check["mime"] . ".<br>";
+					        $uploadOk = 1;
+					    } else {
+					        echo "File is not an image.<br>";
+					        $uploadOk = 0;
+					    }
+							// Check if file already exists
+						// if (file_exists($saved_name)) {
+					 	//    	echo "Sorry, file already exists.<br>";
+					 	//    	$uploadOk = 0;
+						// }
+							// Check file size
+						if ($_FILES["external_proj_$i"]["size"][0] > 1000000) {
+					    	echo "Sorry, your file is too large.<br>";
+					    	$uploadOk = 0;
+						}
+						
+							// Allow certain file formats
+						if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+						&& $imageFileType != "gif" ) {
+					    	// throw error
+					    	$uploadOk = 0;
+						} 
+
+						// Check if $uploadOk is set to 0 by an error
+						if ($uploadOk == 0) {
+					    	$code = 500;
+							//header("Location: alert.php?code=$code");
+							echo("upload error");
+
+						// if everything is ok, try to upload file
+						} 
+						else {
+							$f_upload_result = move_uploaded_file($_FILES["external_proj_$i"]["tmp_name"][0],$saved_name);
+					    	if (!$f_upload_result)
+					    	{
+					        	$code = 500;
+								//header("Location: alert.php?code=$code");
+								echo("upload error");
+					    	}
+						}
+					}
+					else
+					{
+						//handle error
+					}
+				}
+			}
 		}
 	}
-
-	for($i=1;$i<=$ep_rcount;$i++)
-	{
-		//print_r(${"internal_proj_$i"});
-		//echo "<br>";
-		$_SESSION["external_proj_$i"] = ${"external_proj_$i"};
-		$ep["$i"] = $_SESSION["external_proj_$i"];
-	}
-	
-	for($i=1;$i<=$ep_rcount;$i++){
-			$query = "insert into external_fundedproject(emp_id,Project_title,principal,co_invest,duration_from,duration_to,project_cost,amount,grant_type,funding,patents_publication,approval_details) values ('$emp_id','".$ep["$i"][0]."','".$ep["$i"][1]."','".$ep["$i"][2]."','".$ep["$i"][3]."','".$ep["$i"][4]."','".$ep["$i"][5]."','".$ep["$i"][6]."','".$ep["$i"][7]."','".$ep["$i"][8]."','".$ep["$i"][9]."','".$ep["$i"][10]."')";
-			//echo($query);
-			//echo("<br>");
-
-			if(mysqli_query($conn,$query))
-			{
-				echo "row in external_fundedproject inserted";
-			}
-			else
-			{
-				echo "error in external_fundedproject insertion";
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			}
-		}
 }
-
-//echo("<br><br>");
-print_r($_SESSION);
-
 
 ?>
 
@@ -486,7 +504,7 @@ print_r($_SESSION);
 <div class="main_body" style="margin-top: 50px">  
 <form id='form5' action='stage6.php' class='form5' method="POST" > 
 <h2 style="text-align: center">Paper Publication/Presentation</h2>
-<table align='center' border='1' id='table2-1' name="qualific_details" style="table-layout: fixed; width:99%" >
+<table align='center' border='1' id='table1'  style="table-layout: fixed; width:99%" >
 <tr>
  <th style="width: 6%"></th>
  <th style="width: 8%">Sr.No.</th>
@@ -504,7 +522,7 @@ print_r($_SESSION);
 <br /><br />
 </p>
 <h2 style="text-align: center">Book Publication Details</h2>
-<table align='center' border='1' id='table2'  style="table-layout: fixed; width:98%" >
+<table align='center' border='1' id='table2'  style="table-layout: fixed; width:99%" >
 <tr>
 <th style="width: 6%"></th>
  <th style="width: 8%">Sr.No.</th>

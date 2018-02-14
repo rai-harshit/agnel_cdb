@@ -55,6 +55,7 @@ else
 
 
 
+
 <!doctype html>
 <html>
 <head>
@@ -192,12 +193,13 @@ else
   	{  
 			var table = document.getElementById(tableID);   
 			var rowCount = table.rows.length;
+			console.log(rowCount-1);
 			var row = table.insertRow(rowCount);
 			
 			var cell0 = row.insertCell(0);                              //checkbox
 			var element0 = document.createElement('input');
 			element0.type = 'checkbox';
-			element0.name = 'internal_proj_'+rowCount+'[]';
+			element0.name = 'internal_proj_'+(rowCount-1)+'[]';
 			cell0.style.cssText = "width:100%"
 			element0.style.cssText = "text-align:center";
 			element0.id =id+1;
@@ -214,7 +216,7 @@ else
 			var element2 = document.createElement('input');
 			element2.type = 'text';
 			element2.id=id+3;
-			element2.name='internal_proj_'+rowCount+'[]';
+			element2.name='internal_proj_'+(rowCount-1)+'[]';
 			element2.placeholder='Project Title';
 			element2.style.cssText = "width:100%";
 			element2.setAttribute("onchange",'javascript:check(this)');
@@ -224,7 +226,7 @@ else
 			var element3 = document.createElement('input');
 			element3.id=id+4;
 			element3.type = 'text';
-			element3.name='internal_proj_'+rowCount+'[]';
+			element3.name='internal_proj_'+(rowCount-1)+'[]';
 			element3.placeholder='Staff Name';
 			element3.style.cssText = "width:100%";
 			element3.required=true;
@@ -235,7 +237,7 @@ else
 			var element4 = document.createElement('input');               //date
 			element4.type = 'text';
 			element4.id=id+5;
-			element4.name='internal_proj_'+rowCount+'[]';
+			element4.name='internal_proj_'+(rowCount-1)+'[]';
 			element4.placeholder='Student Name';
 			element4.style.cssText = "width:100%";
 			element4.required=true;
@@ -246,7 +248,7 @@ else
 			var element5 = document.createElement('input');               //text field for impact
 			element5.type = 'text';
 			element5.id=id+6;
-			element5.name='internal_proj_'+rowCount+'[]';
+			element5.name='internal_proj_'+(rowCount-1)+'[]';
 			element5.placeholder='Department';
 			element5.style.cssText = "width:100%";
 			element5.required=true;
@@ -257,7 +259,7 @@ else
 			var element6 = document.createElement('input');               //field for url
 			element6.type = 'text';
 			element6.id=id+7;
-			element6.name='internal_proj_'+rowCount+'[]';
+			element6.name='internal_proj_'+(rowCount-1)+'[]';
 			element6.placeholder='2000';
 			element6.style.cssText = "width:100%";
 			element6.required=true;
@@ -268,7 +270,7 @@ else
 			var element7 = document.createElement('input');              //text field for citaiton
 			element7.type = 'text';
 			element7.id=id+8;
-			element7.name='internal_proj_'+rowCount+'[]';
+			element7.name='internal_proj_'+(rowCount-1)+'[]';
 			element7.placeholder='Project Cost';
 			element7.style.cssText = "width:100%";
 			element7.required=true;
@@ -279,7 +281,7 @@ else
 			var element8 = document.createElement('input');              //text field for citaiton
 			element8.type = 'text';
 			element8.id=id+9;
-			element8.name='internal_proj_'+rowCount+'[]';
+			element8.name='internal_proj_'+(rowCount-1)+'[]';
 			element8.placeholder='Project Utility';
 			element8.style.cssText = "width:100%";
 			element8.required=true;
@@ -299,7 +301,7 @@ else
 			var cell0 = row.insertCell(0); 
 			var element0 = document.createElement('input');                //checkbox
 			element0.type = 'checkbox';
-			element0.name = 'external_proj_'+rowCount+'[]';
+			element0.name = 'external_proj_'+(rowCount-1)+'[]';
 			element0.id =rid+1;
 			element0.style.cssText = "text-align:center";
 			cell0.appendChild(element0);
@@ -315,7 +317,7 @@ else
 			var element2 = document.createElement('input');                 //text field for Project Title       
 			element2.type = 'text';
 			element2.id=rid+3;
-			element2.name='external_proj_'+rowCount+'[]';
+			element2.name='external_proj_'+(rowCount-1)+'[]';
 			element2.placeholder='Project Title';
 			element2.style.cssText="width:100%";
 			element2.setAttribute("onchange",'javascript:check1(this)');
@@ -324,7 +326,7 @@ else
 			var cell3 = row.insertCell(3);
 			var element3 = document.createElement('input');                  //text field for Principal
 			element3.id=rid+4;
-			element3.name='external_proj_'+rowCount+'[]';
+			element3.name='external_proj_'+(rowCount-1)+'[]';
 			element3.placeholder='Principal';
 			element3.required=true;
 			element3.disabled=true;
@@ -335,7 +337,7 @@ else
 			var element4 = document.createElement('input');                 //text field for co-Investigator  
 			element4.type = 'text';
 			element4.id=rid+5;
-			element4.name='external_proj_'+rowCount+'[]';
+			element4.name='external_proj_'+(rowCount-1)+'[]';
 			element4.placeholder='Co-Investigator';
 			element4.style.cssText="width:100%";
 			element4.required=true;
@@ -347,7 +349,7 @@ else
 			var element5 = document.createElement('input');                 //text field for year
 			element5.type = 'date';
 			element5.id=rid+6;
-			element5.name='external_proj_'+rowCount+'[]';
+			element5.name='external_proj_'+(rowCount-1)+'[]';
 			element5.placeholder='From';
 			element5.style.cssText="width:100%";
 			element5.required=true;
@@ -358,7 +360,7 @@ else
 			var element6 = document.createElement('input');                 //text field for year
 			element6.type = 'date';
 			element6.id=rid+7;
-			element6.name='external_proj_'+rowCount+'[]';
+			element6.name='external_proj_'+(rowCount-1)+'[]';
 			element6.placeholder='To';
 			element6.style.cssText="width:100%";
 			element6.required=true;
@@ -371,7 +373,7 @@ else
 			var element7 = document.createElement('input');                 //text field for year
 			element7.type = 'text';
 			element7.id=rid+8;
-			element7.name='external_proj_'+rowCount+'[]';
+			element7.name='external_proj_'+(rowCount-1)+'[]';
 			element7.placeholder='Cost';
 			element7.required=true;
 			element7.disabled=true;
@@ -382,7 +384,7 @@ else
 			var element8 = document.createElement('input');                 //text field for year
 			element8.type = 'text';
 			element8.id=rid+9;
-			element8.name='external_proj_'+rowCount+'[]';
+			element8.name='external_proj_'+(rowCount-1)+'[]';
 			element8.placeholder='Amount recieved';
 			element8.required=true;
 			element8.disabled=true;
@@ -392,7 +394,7 @@ else
 			var cell9 = row.insertCell(9);
 			var element9 = document.createElement('select');                 //text field for year
 			element9.id=rid+10;
-			element9.name='external_proj_'+rowCount+'[]';
+			element9.name='external_proj_'+(rowCount-1)+'[]';
 			element9.placeholder='1,00,000';
 			element9.required=true;
 			element9.disabled=true;
@@ -424,7 +426,7 @@ else
 			var element10 = document.createElement('input');                 //text field for co-Investigator  
 			element10.type = 'text';
 			element10.id=rid+11;
-			element10.name='external_proj_'+rowCount+'[]';
+			element10.name='external_proj_'+(rowCount-1)+'[]';
 			element10.placeholder='Funding Body';
 			element10.style.cssText="width:100%";
 			element10.required=true;
@@ -435,7 +437,7 @@ else
 			var element11 = document.createElement('input');                 //text field for co-Investigator  
 			element11.type = 'text';
 			element11.id=rid+12;
-			element11.name='external_proj_'+rowCount+'[]';
+			element11.name='external_proj_'+(rowCount-1)+'[]';
 			element11.placeholder='Patent/Publication';
 			element11.style.cssText="width:100%";
 			element11.required=true;
@@ -445,10 +447,10 @@ else
 			var cell12 = row.insertCell(12);
 			var element12 = document.createElement('input');               //text field for impact
 			element12.type ='file';
-			element12.name = 'fileToUpload[]';
-			element12.accept = '.png';
+			element12.accept = 'image/*';
 			element12.id=rid+13;
-			element12.name='external_proj_'+rowCount+'[]';
+			element12.name='external_proj_'+(rowCount-1)+'[]';
+			element11.style.cssText="width:100%";
 			element12.required=true;
 			element12.disabled=true;
 			cell12.appendChild(element12);
@@ -524,12 +526,13 @@ else
    </header>
    </div>
 <div class="main_body" style="margin-top: 50px">  
-<form id='form4' action="stage5.php" method="POST" class='form4' > 
+
+<form id='form4' action="stage5.php" method="POST" class='form4' enctype='multipart/form-data'> 
 <h2 style="text-align: center"> Internal Projects</h2>
-<table align='center' border='1' id='table4-1' name="r&d" style="table-layout: fixed; width:99%" >
+<table border='1' id='table4-1' style="table-layout: fixed; width:100%" >
 <tr>
- <th rowspan='2' style="width: 6%"></th>
- <th rowspan='2' style="width: 8%">Sr.No.</th>
+ <th rowspan='2' style="width: 4%"></th>
+ <th rowspan='2' style="width: 6%">Sr.No.</th>
  <th rowspan='2'>Project Title</th>
  <th colspan='2'>Investigator</th>
  <th rowspan='2'>Department</th>
@@ -550,10 +553,10 @@ else
 
 <h2 style="text-align: center">External Projects</h2>
 
-<table border='1' id='table4-2' style="table-layout: fixed; width:98%;margin-left: 1%">
+<table border='1' id='table4-2' style="table-layout: fixed; width:100%">
 <tr>
- <th rowspan='2' style="width: 6%"></th>
- <th rowspan='2' style="width: 8%">Sr.No.</th>
+ <th rowspan='2' style="width: 4%"></th>
+ <th rowspan='2' style="width: 6%">Sr.No.</th>
  <th rowspan='2'>Project Title</th>
  <th colspan='2'>Investigator</th>
  <th colspan='2'>Duration</th>
