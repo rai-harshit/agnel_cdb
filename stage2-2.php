@@ -538,16 +538,18 @@ else
 			element6.id=id+7;
 			element6.name='qualific_details_'+rowCount+'[]';
 			element6.placeholder='Percentage';
+			element6.min="0";
 			element6.required=true;
 			element6.disabled=true;
 			cell6.appendChild(element6);
 			
 			var cell7 = row.insertCell(7);          
 			var element7 = document.createElement('input');               //date
-			element7.type = 'text';
+			element7.type = 'number';
 			element7.id=id+8;
 			element7.name='qualific_details_'+rowCount+'[]';
 			element7.placeholder='CGPA';
+			element7.min="0";
 			element7.required=true;
 			element7.disabled=true;
 			cell7.appendChild(element7);
@@ -564,10 +566,12 @@ else
 			
 			var cell9 = row.insertCell(9);
 			var element9 = document.createElement('input');               
-			element9.type = 'text';
+			element9.type = 'number';
 			element9.id=id+10;
 			element9.name='qualific_details_'+rowCount+'[]';
 			element9.placeholder='Passing Year';
+			element9.min="1947";
+			element9.max="2050";
 			element9.required=true;
 			element9.disabled=true;
 			cell9.appendChild(element9);
@@ -633,6 +637,8 @@ else
 			element4.id=rid+5;
 			element4.name='experience_details_'+rowCount+'[]';
 			element4.placeholder='dd/mm/yyyy';
+			element4.min="1947-01-02";
+			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -643,6 +649,8 @@ else
 			element5.id=rid+6;
 			element5.name='experience_details_'+rowCount+'[]';
 			element5.placeholder='dd/mm/yyyy';
+			element5.min="1947-01-02";
+			element5.max="2050-12-31";
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);
@@ -1072,6 +1080,8 @@ else
 			element4.name='interact_outside_'+rowCount+'[]';
 			element4.id=t5id+5;
 			element4.placeholder='dd/mm/yyyy';
+			element4.min="1947-01-02";
+			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -1123,6 +1133,8 @@ function addrow5(tableID) {
 			element4.name =  'train_conf_'+rowCount+'[]';
 			element4.id=t6id+5;
 			element4.placeholder='dd/mm/yyyy';
+			element4.min="1947-01-02";
+			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -1133,6 +1145,8 @@ function addrow5(tableID) {
 			element5.name = 'train_conf_'+rowCount+'[]';
 			element5.id=t6id+6;
 			element5.placeholder='dd/mm/yyyy';
+			element5.min="1947-01-02";
+			element5.max="2050-12-31";
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);	
@@ -1208,6 +1222,8 @@ function addrow5(tableID) {
 			element4.name = 'organization_'+rowCount+'[]';
 			element4.id=t7id+5;
 			element4.placeholder='dd/mm/yyyy';
+			element4.min="1947-01-02";
+			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -1289,6 +1305,8 @@ function addrow5(tableID) {
 			var cell6 = row.insertCell(6);
 			var element6 = document.createElement('input');               //text field for impact
 			element6.type = 'date';
+			element6.min="1947-01-02";
+			element6.max="2050-12-31";
 			element6.id=t8id+7;
 			element6.name= 'projects_guided_'+rowCount+'[]';
 			element6.required=true;

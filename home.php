@@ -24,5 +24,5 @@ print_r($_SESSION['eid']);
 <a href="stage2-2.php" >stage 2-2</a><br><br>
 <a href="stage3.php" >stage 3</a><br><br>
 <a href="stage4.php" >stage 4</a><br><br>
-<a href="stage.php" >stage 5</a><br><br>
+<a href="stage5.php" >stage 5</a><br><br>
 

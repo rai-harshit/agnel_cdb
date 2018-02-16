@@ -229,7 +229,7 @@ if(isset($_SESSION['eid']))
 						<tr>
    							<td id="attr">Middle Name : </td>
    							<td>
-   								<input type="text" name="middle_name" >
+   								<input type="text" name="middle_name"  >
    							</td>
    						</tr>
    						<tr>
@@ -278,7 +278,7 @@ if(isset($_SESSION['eid']))
    						<tr>
    							<td id="attr">Date of Birth : </td>
    							<td>
-   								<input type="date" name="DOB" id="dob"  required>
+   								<input type="date" name="DOB" id="dob" min="1947-01-02" max="2050-01-02" required>
    							</td>
    						</tr>
                      <tr>

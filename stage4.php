@@ -240,6 +240,7 @@ else
 			element4.name='internal_proj_'+(rowCount-1)+'[]';
 			element4.placeholder='Student Name';
 			element4.style.cssText = "width:100%";
+			element4.min="1947-01-02";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -257,10 +258,12 @@ else
 			
 			var cell6 = row.insertCell(6);
 			var element6 = document.createElement('input');               //field for url
-			element6.type = 'text';
+			element6.type = 'number';
 			element6.id=id+7;
 			element6.name='internal_proj_'+(rowCount-1)+'[]';
 			element6.placeholder='2000';
+			element6.min="1947";
+			element6.max="2050";
 			element6.style.cssText = "width:100%";
 			element6.required=true;
 			element6.disabled=true;
@@ -352,6 +355,7 @@ else
 			element5.name='external_proj_'+(rowCount-1)+'[]';
 			element5.placeholder='From';
 			element5.style.cssText="width:100%";
+			element5.min="1947-01-02";
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);
@@ -362,6 +366,7 @@ else
 			element6.id=rid+7;
 			element6.name='external_proj_'+(rowCount-1)+'[]';
 			element6.placeholder='To';
+			element6.max="2050-12-31";
 			element6.style.cssText="width:100%";
 			element6.required=true;
 			element6.disabled=true;
@@ -371,10 +376,11 @@ else
 			
 			var cell7 = row.insertCell(7);
 			var element7 = document.createElement('input');                 //text field for year
-			element7.type = 'text';
+			element7.type = 'number';
 			element7.id=rid+8;
 			element7.name='external_proj_'+(rowCount-1)+'[]';
 			element7.placeholder='Cost';
+			element7.min="0";
 			element7.required=true;
 			element7.disabled=true;
 			element7.style.cssText="width:100%";
@@ -382,10 +388,11 @@ else
 
 			var cell8 = row.insertCell(8);
 			var element8 = document.createElement('input');                 //text field for year
-			element8.type = 'text';
+			element8.type = 'number';
 			element8.id=rid+9;
 			element8.name='external_proj_'+(rowCount-1)+'[]';
 			element8.placeholder='Amount recieved';
+			element8.min="0";
 			element8.required=true;
 			element8.disabled=true;
 			element8.style.cssText="width:100%";
@@ -396,6 +403,7 @@ else
 			element9.id=rid+10;
 			element9.name='external_proj_'+(rowCount-1)+'[]';
 			element9.placeholder='1,00,000';
+			element9.min="0";
 			element9.required=true;
 			element9.disabled=true;
 			
