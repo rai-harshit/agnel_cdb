@@ -323,11 +323,13 @@ else
 			
 			var cell5 = row.insertCell(5);          
 			var element5 = document.createElement('input');               //year
-			element5.type = 'text';
+			element5.type = 'number';
 			element5.id=id+6;
 			element5.name= 'paper_publication_'+rowCount+'[]';
 			element5.style.cssText='width:100%';
 			element5.placeholder='year ';
+			element5.min="1947";
+			element5.max="2050";
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);
@@ -403,9 +405,11 @@ else
 			
 			var cell5 = row.insertCell(5);
 			var element5 = document.createElement('input');                 //text field for year
-			element5.type = 'year';
+			element5.type = 'number';
 			element5.id=rid+6;
 			element5.name= 'book_publication_'+rowCount+'[]';
+			element5.min="1947";
+			element5.max="2050";
 			element5.placeholder='Year';
 			element5.style.cssText='width:100%';
 			element5.required=true;
