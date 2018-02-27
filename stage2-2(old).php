@@ -119,7 +119,7 @@ else
   var t10id = 6699;
   
   
-  // function to validate table1 -- qualification DETAILS
+  // function to validate table1 -- QUALIFICATION DETAILS
   function check(field){
 	  //id value for element
     var i1 = Number(field.id)+1;           
@@ -173,20 +173,13 @@ else
 	}
   }
  //jaya gupta
- // function for teacher exp Details
+ // function for Experience Details
  function check1(field){
 	  // id for element
     var i1 = Number(field.id)+1;
 	var i2 = i1+1;
 	var i3 = i1+2
 	var i4 = i1+3;
-	var i5 = i1+4;
-	var i6 = i1+5;
-	var i7 = i1+6;
-	var i8 = i1+7;
-	var i9 = i1+8;
-	var i10 = i1+9;
-
 	
 	
 	// retrieving element by ids
@@ -194,35 +187,17 @@ else
 	var s2=document.getElementById(i2);
 	var s3=document.getElementById(i3);
 	var s4=document.getElementById(i4);
-	var s5=document.getElementById(i5);
-	var s6=document.getElementById(i6);
-	var s7=document.getElementById(i7);
-	var s8=document.getElementById(i8);
-	var s9=document.getElementById(i9);
-	var s10=document.getElementById(i10);
 	
 	//disabling fields if value of name of book is null
 	if(field.value==""){
 	s1.value = "";	
 	s2.value = "";
 	s3.value = "";
-	s4.value = "";
-	s5.value = "";
-	s6.value = "";
-	s7.value = "";
-	s8.value = "";
-	s9.value = "";
-	s10.value = "";
+	s4.value = "";	
 	s1.disabled = true;
 	s2.disabled = true;
   	s3.disabled = true;
 	s4.disabled = true;
-	s5.disabled = true;
-	s6.disabled = true;
-	s7.disabled = true;
-	s8.disabled = true;
-	s9.disabled = true;
-	s10.disabled = true;
   	return 0;	
 	}
 	//enabling fields if value of name of book is not null
@@ -231,18 +206,12 @@ else
 	s2.disabled = false;
   	s3.disabled = false;
 	s4.disabled = false;
-	s5.disabled = false;
-	s6.disabled = false;
-	s7.disabled = false;
-	s8.disabled = false;
-	s9.disabled = false;
-	s10.disabled = false;
 	return 0;		
 	}
   }
   
   
-    // function to validate table21 -- Research details
+    // function to validate table21 -- approval details
   function check9(field){
 	  //id value for element
     var i1 = Number(field.id)+1;           
@@ -280,8 +249,9 @@ else
 	return 0;		
 	}
   }
-
- function check10(field){
+  
+  // function to check overall experience dedtails
+  function check10(field){
 	  //id value for element
     var i1 = Number(field.id)+1;           
 	var i2 = i1+1;                          
@@ -318,45 +288,6 @@ else
 	return 0;		
 	}
   }
-  
-  // function to check Industry experience dedtails
- //  function check10(field){
-	//   //id value for element
- //    var i1 = Number(field.id)+1;           
-	// var i2 = i1+1;                          
-	// var i3 = i1+2;
-	// var i4 = i1+3;
-	// var i5 = i1+4;
-	// //retrieving element by ids
-	// var s1=document.getElementById(i1);
-	// var s2=document.getElementById(i2);
-	// var s3=document.getElementById(i3);
-	// var s4=document.getElementById(i4);
-	// var s5=document.getElementById(i5);
-	// //disabling fields if value of paper title is null
-	// if(field.value==""){
-	// s1.value = "";	
-	// s2.value = "";
-	// s3.value = "";	
-	// s4.value = "";
-	// s5.value = "";
-	// s1.disabled = true;
-	// s2.disabled = true;
- //  	s3.disabled = true;
-	// s4.disabled = true;
-	// s5.disabled = true;
-	//  return 0;	
-	// }
-	// //enabling fields if value of paper title is not null
-	// else{
-	// s1.disabled = false;
-	// s2.disabled = false;
- //  	s3.disabled = false;
-	// s4.disabled = false;
-	// s5.disabled = false;
-	// return 0;		
-	// }
- //  }
 //jaya gupta	
 	//function for SUBJECTS TAUGHT
 	  function check2(field){
@@ -607,18 +538,16 @@ else
 			element6.id=id+7;
 			element6.name='qualific_details_'+rowCount+'[]';
 			element6.placeholder='Percentage';
-			element6.min="0";
 			element6.required=true;
 			element6.disabled=true;
 			cell6.appendChild(element6);
 			
 			var cell7 = row.insertCell(7);          
 			var element7 = document.createElement('input');               //date
-			element7.type = 'number';
+			element7.type = 'text';
 			element7.id=id+8;
 			element7.name='qualific_details_'+rowCount+'[]';
 			element7.placeholder='CGPA';
-			element7.min="0";
 			element7.required=true;
 			element7.disabled=true;
 			cell7.appendChild(element7);
@@ -635,12 +564,10 @@ else
 			
 			var cell9 = row.insertCell(9);
 			var element9 = document.createElement('input');               
-			element9.type = 'number';
+			element9.type = 'text';
 			element9.id=id+10;
 			element9.name='qualific_details_'+rowCount+'[]';
 			element9.placeholder='Passing Year';
-			element9.min="1947";
-			element9.max="2050";
 			element9.required=true;
 			element9.disabled=true;
 			cell9.appendChild(element9);
@@ -660,7 +587,7 @@ else
 
         id=id+11;   
 		}
-	//function to add rows in teacher Experience Details	
+	//function to add rows in Experience Details	
 	function addrow1(tableID) {
           
 			var table = document.getElementById(tableID);
@@ -671,7 +598,7 @@ else
 			var cell0 = row.insertCell(0); 
 			var element0 = document.createElement('input');                //checkbox
 			element0.type = 'checkbox';
-			element0.name = 'teacher_exp_details_'+rowCount+'[]';
+			element0.name = 'experience_details_'+rowCount+'[]';
 			element0.id =rid+1;
 			cell0.appendChild(element0);
 			
@@ -685,7 +612,7 @@ else
 			var element2 = document.createElement('input');                 //text field for name       
 			element2.type = 'text';
 			element2.id=rid+3;
-			element2.name='teacher_exp_details_'+rowCount+'[]';
+			element2.name='experience_details_'+rowCount+'[]';
 			element2.placeholder='Organization Name';
 			element2.setAttribute("onchange",'javascript:check1(this)');
 			cell2.appendChild(element2);
@@ -694,7 +621,7 @@ else
 			var element3 = document.createElement('input');                  //text field for aurthor
 			element3.type='text';
 			element3.id=rid+4;
-			element3.name='teacher_exp_details_'+rowCount+'[]';
+			element3.name='experience_details_'+rowCount+'[]';
 			element3.placeholder='Desgination';
 			element3.required=true;
 			element3.disabled=true;
@@ -704,10 +631,8 @@ else
 			var element4 = document.createElement('input');                 //text field for publisher  
 			element4.type = 'Date';
 			element4.id=rid+5;
-			element4.name='teacher_exp_details_'+rowCount+'[]';
+			element4.name='experience_details_'+rowCount+'[]';
 			element4.placeholder='dd/mm/yyyy';
-			element4.min="1947-01-02";
-			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -716,138 +641,28 @@ else
 			var element5 = document.createElement('input');                 //text field for year
 			element5.type = 'Date';
 			element5.id=rid+6;
-			element5.name='teacher_exp_details_'+rowCount+'[]';
+			element5.name='experience_details_'+rowCount+'[]';
 			element5.placeholder='dd/mm/yyyy';
-			element5.min="1947-01-02";
-			element5.max="2050-12-31";
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);
-			
+
 			var cell6 = row.insertCell(6);
-			var element6 = document.createElement('input');                 //text field for Project Title       
-			element6.type = 'text';
+			var element6 = document.createElement('input');                 //text field for year
+			element6.type = 'file';
+			element6.accept = 'image/*';
 			element6.id=rid+7;
-			element6.name='teacher_exp_details_'+rowCount+'[]';
-			element6.placeholder='Current Pay Scale';
+			element6.name='experience_details_'+rowCount+'[]';
 			element6.required=true;
 			element6.disabled=true;
-			element6.style.cssText="width:100%";
 			cell6.appendChild(element6);
 			
-			var cell7 = row.insertCell(7);
-			var element7 = document.createElement('input');                  //text field for Principal
-			element7.id=rid+8;
-			element7.name='teacher_exp_details_'+rowCount+'[]';
-			element7.placeholder='Grade Pay';
-			element7.required=true;
-			element7.disabled=true;
-			element7.style.cssText="width:100%";
-			cell7.appendChild(element7);
-			
-			var cell8 = row.insertCell(8);
-			var element8 = document.createElement('select');                 //text field for year
-			element8.id=rid+9;
-			element8.name='teacher_exp_details_'+rowCount+'[]';
-			element8.placeholder='appointment';
-			element8.required=true;
-			element8.disabled=true;
-			
-			var option1 = document.createElement("option");              //option none  
-			option1.innerHTML = "None";
-			option1.value = "";
-			option1.disabled=true;
-	        option1.selected=true;
-		    element8.appendChild(option1);
-			
-			var option2 = document.createElement("option");              //option none  
-			option2.innerHTML = "USSC Approved";
-			option2.value = "USSC Approved";
-		    element8.appendChild(option2);
-			
-			var option3 = document.createElement("option");              //option none  
-			option3.innerHTML = "Regular";
-			option3.value = "Regular";
-		    element8.appendChild(option3);
-			
-			var option4 = document.createElement("option");              //option none  
-			option4.innerHTML = "Adhoc";
-			option4.value = "Adhoc";
-		    element8.appendChild(option4);
-			
-			var option5 = document.createElement("option");              //option none  
-			option5.innerHTML = "Visiting";
-			option5.value = "Visiting";
-		    element8.appendChild(option5);
-			
-			var option6 = document.createElement("option");              //option none  
-			option6.innerHTML = "Probation";
-			option6.value = "Probation";
-		    element8.appendChild(option6);
-			
-			
-			element8.style.cssText="width:100%";
-			element8.appendChild(option1);
-			element8.appendChild(option2);
-			element8.appendChild(option3);
-			element8.appendChild(option4);
-			element8.appendChild(option5);
-			element8.appendChild(option6);
-			
-			cell8.appendChild(element8);
-			
-			var cell9 = row.insertCell(9);
-			var element9 = document.createElement('input');                 //text field for year
-			element9.type = 'date';
-			element9.id=rid+10;
-			element9.name='teacher_exp_details_'+rowCount+'[]';
-			element9.placeholder='Approval Date';
-			element9.style.cssText="width:100%";
-			element9.required=true;
-			element9.disabled=true;
-			cell9.appendChild(element9);
-			
-			var cell10 = row.insertCell(10);
-			var element10 = document.createElement('input');                 //text field for year
-			element10.type = 'text';
-			element10.id=rid+11;
-			element10.name='teacher_exp_details_'+rowCount+'[]';
-			element10.placeholder='Approval no';
-			element10.required=true;
-			element10.disabled=true;
-			element10.style.cssText="width:100%";
-			cell10.appendChild(element10);
 
-			var cell11 = row.insertCell(11);
-			var element11 = document.createElement('input');                 //text field for year
-			element11.type = 'number';
-			element11.id=rid+12;
-			element11.name='teacher_exp_details_'+rowCount+'[]';
-			element11.placeholder='Experience Year';
-			//element12.min="1947";
-			//element12.max="2050";
-			element11.required=true;
-			element11.disabled=true;
-			element11.style.cssText="width:100%";
-			cell11.appendChild(element11);
-			
-			var cell12 = row.insertCell(12);
-			var element12 = document.createElement('input');               //text field for impact
-			element12.type ='file';
-			element12.accept = 'image/*';
-			element12.name = 'fileToUpload[]';
-			element12.id=rid+13;
-			element12.name='teacher_exp_details_'+rowCount+'[]';
-			element12.required=true;
-			element12.disabled=true;
-			cell12.appendChild(element12);
-			
-
-		rid=rid+14;
+		rid=rid+7;
 		}	
 		
 		
-		//function to add rows in Research Experience details	
+		//function to add rows in Approval details	
 	function addrow8(tableID) {
           var table = document.getElementById(tableID);
 		  var rowCount = table.rows.length;
@@ -856,7 +671,7 @@ else
 		  var cell0 = row.insertCell(0); 
 			var element0 = document.createElement('input');                //checkbox
 			element0.type = 'checkbox';
-			element0.name = 'research_exp_details_'+rowCount+'[]';
+			element0.name = 'appointment_details_'+rowCount+'[]';
 			element0.id =t9id+1;
 			element0.style.cssText = "text-align:center";
 			cell0.appendChild(element0);
@@ -869,70 +684,109 @@ else
 			cell1.appendChild(element1);
 			
 			var cell2 = row.insertCell(2);
-			var element2 = document.createElement('input');                 //text field for name       
+			var element2 = document.createElement('input');                 //text field for Project Title       
 			element2.type = 'text';
 			element2.id=t9id+3;
-			element2.name='research_exp_details_'+rowCount+'[]';
-			element2.placeholder='Organization Name';
+			element2.name='appointment_details_'+rowCount+'[]';
+			element2.placeholder='Current Pay Scale';
+			element2.style.cssText="width:100%";
 			element2.setAttribute("onchange",'javascript:check9(this)');
 			cell2.appendChild(element2);
-
+			
 			var cell3 = row.insertCell(3);
-			var element3 = document.createElement('input');                  //text field for aurthor
-			element3.type='text';
+			var element3 = document.createElement('input');                  //text field for Principal
 			element3.id=t9id+4;
-			element3.name='research_exp_details_'+rowCount+'[]';
-			element3.placeholder='Desgination';
+			element3.name='appointment_details_'+rowCount+'[]';
+			element3.placeholder='Grade Pay';
 			element3.required=true;
 			element3.disabled=true;
+			element3.style.cssText="width:100%";
 			cell3.appendChild(element3);
 			
 			var cell4 = row.insertCell(4);
-			var element4 = document.createElement('input');                 //text field for publisher  
-			element4.type = 'Date';
+			var element4 = document.createElement('select');                 //text field for year
 			element4.id=t9id+5;
-			element4.name='research_exp_details_'+rowCount+'[]';
-			element4.placeholder='dd/mm/yyyy';
-			element4.min="1947-01-02";
-			element4.max="2050-12-31";
+			element4.name='appointment_details_'+rowCount+'[]';
+			element4.placeholder='appointment';
 			element4.required=true;
 			element4.disabled=true;
+			
+			var option1 = document.createElement("option");              //option none  
+			option1.innerHTML = "None";
+			option1.value = "";
+			option1.disabled=true;
+	        option1.selected=true;
+		    element4.appendChild(option1);
+			
+			var option2 = document.createElement("option");              //option none  
+			option2.innerHTML = "USSC Approved";
+			option2.value = "USSC Approved";
+		    element4.appendChild(option2);
+			
+			var option3 = document.createElement("option");              //option none  
+			option3.innerHTML = "Regular";
+			option3.value = "Regular";
+		    element4.appendChild(option3);
+			
+			var option4 = document.createElement("option");              //option none  
+			option4.innerHTML = "Adhoc";
+			option4.value = "Adhoc";
+		    element4.appendChild(option4);
+			
+			var option5 = document.createElement("option");              //option none  
+			option5.innerHTML = "Visiting";
+			option5.value = "Visiting";
+		    element4.appendChild(option5);
+			
+			var option6 = document.createElement("option");              //option none  
+			option6.innerHTML = "Probation";
+			option6.value = "Probation";
+		    element4.appendChild(option6);
+			
+			
+			element4.style.cssText="width:100%";
+			element4.appendChild(option1);
+			element4.appendChild(option2);
+			element4.appendChild(option3);
+			element4.appendChild(option4);
+			element4.appendChild(option5);
+			element4.appendChild(option6);
+			
 			cell4.appendChild(element4);
 			
 			var cell5 = row.insertCell(5);
 			var element5 = document.createElement('input');                 //text field for year
-			element5.type = 'Date';
+			element5.type = 'date';
 			element5.id=t9id+6;
-			element5.name='research_exp_details_'+rowCount+'[]';
-			element5.placeholder='dd/mm/yyyy';
-			element5.min="1947-01-02";
-			element5.max="2050-12-31";
+			element5.name='appointment_details_'+rowCount+'[]';
+			element5.placeholder='Approval Date';
+			element5.style.cssText="width:100%";
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);
-
+			
 			var cell6 = row.insertCell(6);
-			var element6 = document.createElement('input');                 //text field for Project Title       
+			var element6 = document.createElement('input');                 //text field for year
 			element6.type = 'text';
 			element6.id=t9id+7;
-			element6.name='research_exp_details_'+rowCount+'[]';
-			element6.placeholder='Research Experience in Years';
+			element6.name='appointment_details_'+rowCount+'[]';
+			element6.placeholder='Approval no';
 			element6.required=true;
 			element6.disabled=true;
 			element6.style.cssText="width:100%";
-			//element6.setAttribute("onchange",'javascript:check10(this)');
 			cell6.appendChild(element6);
 			
 			var cell7 = row.insertCell(7);
 			var element7 = document.createElement('input');               //text field for impact
 			element7.type ='file';
-			element7.name = 'fileToUpload[]';
 			element7.accept = 'image/*';
+			element7.name = 'fileToUpload[]';
 			element7.id=t9id+8;
-			element7.name='research_exp_details_'+rowCount+'[]';
+			element7.name='appointment_details_'+rowCount+'[]';
 			element7.required=true;
 			element7.disabled=true;
 			cell7.appendChild(element7);
+			
 			t9id=t9id+8;					
 			
 		}	
@@ -947,7 +801,7 @@ else
 		  var cell0 = row.insertCell(0); 
 			var element0 = document.createElement('input');                //checkbox
 			element0.type = 'checkbox';
-			element0.name = 'industry_exp_details_'+rowCount+'[]';
+			element0.name = 'overall_exp_details_'+rowCount+'[]';
 			element0.id =t10id+1;
 			element0.style.cssText = "text-align:center";
 			cell0.appendChild(element0);
@@ -958,56 +812,54 @@ else
 			element1.id = t10id+2;
 			cell1.innerHTML = rowCount;
 			cell1.appendChild(element1);
-
+			
 			var cell2 = row.insertCell(2);
-			var element2 = document.createElement('input');                 //text field for name       
+			var element2 = document.createElement('input');                 //text field for Project Title       
 			element2.type = 'text';
 			element2.id=t10id+3;
-			element2.name='industry_exp_details_'+rowCount+'[]';
-			element2.placeholder='Organization Name';
+			element2.name='overall_exp_details_'+rowCount+'[]';
+			element2.placeholder='Teaching Experience in Years';
+			element2.style.cssText="width:100%";
 			element2.setAttribute("onchange",'javascript:check10(this)');
 			cell2.appendChild(element2);
-           
-            var cell3 = row.insertCell(3);
-			var element3 = document.createElement('input');                  //text field for aurthor
-			element3.type='text';
+			
+			var cell3 = row.insertCell(3);
+			var element3 = document.createElement('input');               //text field for impact
+			element3.type ='file';
+			element3.name = 'fileToUpload[]';
+			element3.accept = 'image/*';
 			element3.id=t10id+4;
-			element3.name='industry_exp_details_'+rowCount+'[]';
-			element3.placeholder='Desgination';
+			element3.name='overall_exp_details_'+rowCount+'[]';
 			element3.required=true;
 			element3.disabled=true;
-			cell3.appendChild(element3); 
+			cell3.appendChild(element3);
 			
 			var cell4 = row.insertCell(4);
-			var element4 = document.createElement('input');                 //text field for publisher  
-			element4.type = 'Date';
+			var element4 = document.createElement('input');                  //text field for Principal
 			element4.id=t10id+5;
-			element4.name='industry_exp_details_'+rowCount+'[]';
-			element4.placeholder='dd/mm/yyyy';
-			element4.min="1947-01-02";
-			element4.max="2050-12-31";
+			element4.name='overall_exp_details_'+rowCount+'[]';
+			element4.placeholder='Industrial Experience in Years';
 			element4.required=true;
 			element4.disabled=true;
+			element4.style.cssText="width:100%";
 			cell4.appendChild(element4);
 			
 			var cell5 = row.insertCell(5);
-			var element5 = document.createElement('input');                 //text field for year
-			element5.type = 'Date';
+			var element5 = document.createElement('input');               //text field for impact
+			element5.type ='file';
+			element5.name = 'fileToUpload[]';
+			element5.accept = 'image/*';
 			element5.id=t10id+6;
-			element5.name='industry_exp_details_'+rowCount+'[]';
-			element5.placeholder='dd/mm/yyyy';
-			element5.min="1947-01-02";
-			element5.max="2050-12-31";
+			element5.name='overall_exp_details_'+rowCount+'[]';
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);
-
+			
 			var cell6 = row.insertCell(6);
-			var element6 = document.createElement('input');                 //text field for Project Title       
-			element6.type = 'text';
+			var element6 = document.createElement('input');                  //text field for Principal
 			element6.id=t10id+7;
-			element6.name='industry_exp_details_'+rowCount+'[]';
-			element6.placeholder='Industry Experience in Years';
+			element6.name='overall_exp_details_'+rowCount+'[]';
+			element6.placeholder='Research Experience in Years';
 			element6.required=true;
 			element6.disabled=true;
 			element6.style.cssText="width:100%";
@@ -1019,12 +871,10 @@ else
 			element7.name = 'fileToUpload[]';
 			element7.accept = 'image/*';
 			element7.id=t10id+8;
-			element7.name='industry_exp_details_'+rowCount+'[]';
+			element7.name='overall_exp_details_'+rowCount+'[]';
 			element7.required=true;
 			element7.disabled=true;
 			cell7.appendChild(element7);
-			
-			 
 			
 			t10id=t10id+8;	
 			
@@ -1222,8 +1072,6 @@ else
 			element4.name='interact_outside_'+rowCount+'[]';
 			element4.id=t5id+5;
 			element4.placeholder='dd/mm/yyyy';
-			element4.min="1947-01-02";
-			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -1275,8 +1123,6 @@ function addrow5(tableID) {
 			element4.name =  'train_conf_'+rowCount+'[]';
 			element4.id=t6id+5;
 			element4.placeholder='dd/mm/yyyy';
-			element4.min="1947-01-02";
-			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -1287,8 +1133,6 @@ function addrow5(tableID) {
 			element5.name = 'train_conf_'+rowCount+'[]';
 			element5.id=t6id+6;
 			element5.placeholder='dd/mm/yyyy';
-			element5.min="1947-01-02";
-			element5.max="2050-12-31";
 			element5.required=true;
 			element5.disabled=true;
 			cell5.appendChild(element5);	
@@ -1364,8 +1208,6 @@ function addrow5(tableID) {
 			element4.name = 'organization_'+rowCount+'[]';
 			element4.id=t7id+5;
 			element4.placeholder='dd/mm/yyyy';
-			element4.min="1947-01-02";
-			element4.max="2050-12-31";
 			element4.required=true;
 			element4.disabled=true;
 			cell4.appendChild(element4);
@@ -1447,8 +1289,6 @@ function addrow5(tableID) {
 			var cell6 = row.insertCell(6);
 			var element6 = document.createElement('input');               //text field for impact
 			element6.type = 'date';
-			element6.min="1947-01-02";
-			element6.max="2050-12-31";
 			element6.id=t8id+7;
 			element6.name= 'projects_guided_'+rowCount+'[]';
 			element6.required=true;
@@ -1634,7 +1474,7 @@ function addrow5(tableID) {
 <input tyoe='text' name='aoi'  required />
 </center>-->
 <div id="">
-<h2 style="text-align: center;">Teacher Experience Details</h2>
+<h2 style="text-align: center;">Experience Details</h2>
 <table align='center' border='1' id='table2-2' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:4%"></th>
@@ -1643,15 +1483,7 @@ function addrow5(tableID) {
  <th >Designation</th>
  <th >Date of Joining</th>
  <th>Last Date of working</th>
- <th >Current Pay Scale</th>
-<th >Grade Pay</th>
-<th>Nature Of Appointment</th>
-<th >USSC Approved Date</th>
-<th >USSC Approved Reference Number</th>
-<th>Teaching Experience Year</th>
-<th>Proof</th>
-
- 
+ <th >Proof</th>
  
 </tr>
 </table>
@@ -1671,17 +1503,18 @@ function addrow5(tableID) {
 
 
 <div id="tab3">
-<h2 style="text-align: center;">Research Experience Details</h2>
+<h2 style="text-align: center;">Appointment Approval Details </h2>
 <table align='center' border='1' id='table2-9' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
-<th>Organzation Name</th>
- <th >Designation</th>
- <th >Date of Joining</th>
- <th>Last Date of working</th>
- <th>Research Experience in Years</th>
-<th>Attach Proof</th></tr>
+ <th >Current Pay Scale</th>
+<th >Grade Pay</th>
+<th>Nature Of Appointment</th>
+<th >USSC Approved Date</th>
+<th >USSC Approved Reference Number</th>
+<th>Proof</th>
+</tr>
 </table>
 <p class="inline" style="text-align: center">
 <input id='b1' style='height:25px;width:100px' type='button' value="Add" onclick='addrow8("table2-9")' />
@@ -1692,19 +1525,17 @@ function addrow5(tableID) {
 
 
 <div id="tab3">
-<h2 style="text-align: center;">Industry Experience Details </h2>
+<h2 style="text-align: center;">Overall Experience Details </h2>
 <table align='center' border='1' id='table2-10' style="table-layout: fixed; width:99%">
 <tr>
  <th style="width:6%"></th>
  <th style="width:8%">Sr.No.</th>
-<th>Organzation Name</th>
- <th >Designation</th>
- <th >Date of Joining</th>
- <th>Last Date of working</th>
- <th>Industrial Experience in Years</th>
+<th>Teaching Experience in Years</th>
 <th>Attach Proof</th>
-<!--<th>Research Experience in Years</th>
-<th>Proof</th>-->
+<th>Industrial Experience in Years</th>
+<th>Attach Proof</th>
+<th>Research Experience in Years</th>
+<th>Proof</th>
 </tr>
 </table>
 <p class="inline" style="text-align: center">

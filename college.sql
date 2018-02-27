@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 04, 2018 at 02:12 PM
+-- Generation Time: Feb 27, 2018 at 05:43 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -71,40 +71,6 @@ CREATE TABLE `designation` (
   `designation` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `designation`
---
-
-INSERT INTO `designation` (`sr`, `emp_id`, `designation`) VALUES
-(62, 'sdfsfRai5142', 'assoc_prof_dean');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `experience_details`
---
-
-CREATE TABLE `experience_details` (
-  `Sr.No` int(200) NOT NULL,
-  `Oranization_name` varchar(100) NOT NULL,
-  `Designation` varchar(100) NOT NULL,
-  `Date_of_joining` date NOT NULL,
-  `Date_of_working` date NOT NULL,
-  `proof_of_designation` longblob NOT NULL,
-  `Total_exp_count` float NOT NULL,
-  `Current_pay_scale` float NOT NULL,
-  `Grade_pay` float NOT NULL,
-  `Proof_of_CP_GP` longblob NOT NULL,
-  `Nature_of_appointment` varchar(100) NOT NULL,
-  `USSC_approval_date` date NOT NULL,
-  `USSC_approval_ref_no` int(255) NOT NULL,
-  `proof` longblob NOT NULL,
-  `Teaching_exp` float NOT NULL,
-  `Industrial_exp` float NOT NULL,
-  `Research_exp` float NOT NULL,
-  `proof_exp` longblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 -- --------------------------------------------------------
 
 --
@@ -168,6 +134,30 @@ CREATE TABLE `faculty_personal_details` (
 
 INSERT INTO `faculty_personal_details` (`emp_id`, `last_name`, `middle_name`, `first_name`, `spouse_name`, `dob`, `age`, `Gender`, `marital_status`, `mobile_no`, `residential_no`, `email`, `alt_email`, `pan_no`, `pf_no`, `aadhar`, `permanent_address`, `current_address`, `mothers_name`, `fathers_name`, `religion`, `category`, `caste`, `nationality`, `passport_no`, `form_16`) VALUES
 ('Harshit3940', 'Rai', 'Ashok', 'Harshit', '', '2018-02-13', 0, 'male', 'Unmarried', '7897948768', '9877964798', 'kalpana.wani@fcrit.ac.in', 'hr68.official@gmail.com', 'KHKH428742', '35643865763785', '583476758368', 'HKJHKJHDSKHFSJKFHSKHFSJKHFDJKSFDSHJKSFSSFHJKHDSKFHDSHFJDSKHFJKHSKHJHSDHFSKHFKJSS', 'HFSDHFKJSDHFKJSHFHJSDFHSDHFJKHSKDJFHJKSHJKFHSKHFHJSFDHSFJKDHJSKHJSDH', 'Sangeeta R', 'Ashok Rai', 'Islam', 'ntdt', 'KJEHQJKHEKQ', 'indian', '742YURWEU', 'AnNS');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `industry_experience_details`
+--
+
+CREATE TABLE `industry_experience_details` (
+  `sr_no` int(11) NOT NULL,
+  `emp_id` varchar(32) NOT NULL,
+  `organization_name` varchar(128) NOT NULL,
+  `designation` varchar(48) NOT NULL,
+  `date_of_joining` date NOT NULL,
+  `last_date_of_working` date NOT NULL,
+  `industry_exp_years` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `industry_experience_details`
+--
+
+INSERT INTO `industry_experience_details` (`sr_no`, `emp_id`, `organization_name`, `designation`, `date_of_joining`, `last_date_of_working`, `industry_exp_years`) VALUES
+(1, 'Harshit3940', 'rwerewr', 'tretertet', '2018-02-06', '2018-02-14', 242),
+(2, 'Harshit3940', 'rwerewr', 'tretertet', '2018-02-06', '2018-02-14', 242);
 
 -- --------------------------------------------------------
 
@@ -285,11 +275,33 @@ CREATE TABLE `qualification_details` (
 --
 
 INSERT INTO `qualification_details` (`emp_id`, `qualification`, `branch`, `specialization`, `university`, `percentage`, `cgpa`, `class_obtained`, `passing_year`, `proof`) VALUES
-('', 'fkjshdk', 'fsfsjgfjs', 'gfjsgjfs', 'jfdsgjfgsj', 0, 0, 'fjsgjgsjh', 0, 'ghjhdkghd'),
-('', 'fhskjfh', 'fshkfsj', 'khfskjf', 'kshfksjhf', 0, 0, 'fskhkfjs', 0, 'fshkfhsk'),
-('', 'sfkshfkh', 'kshfsjhdks', 'kshfsjhfjk', 'tuieyteiuy', 0, 0, 'khsfjhskj', 0, 'gdfkhdhj'),
-('', 'tehtreuytui', 'teruytuie', 'eriytieruyt', 'tytuerytie', 0, 0, 'hgkdhkdgh', 0, 'sfhskjfhk'),
-('', 'dghkjdgh', 'IT', 'sfhjskfh', 'khfgdhgk', 0, 0, 'dgkhgkjd', 0, 'hdgkjfdgjh');
+('Harshit3940', 'dfgdggfg', 'dggfdgdg', 'dfgfdgdfg', 'dfgfdgdfg', 0, 32, 'dgfgdgd', 2013, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `research_experience_details`
+--
+
+CREATE TABLE `research_experience_details` (
+  `sr_no` int(11) NOT NULL,
+  `emp_id` varchar(32) NOT NULL,
+  `organization_name` varchar(128) NOT NULL,
+  `designation` varchar(48) NOT NULL,
+  `date_of_joining` date NOT NULL,
+  `last_date_of_working` date NOT NULL,
+  `research_exp_years` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `research_experience_details`
+--
+
+INSERT INTO `research_experience_details` (`sr_no`, `emp_id`, `organization_name`, `designation`, `date_of_joining`, `last_date_of_working`, `research_exp_years`) VALUES
+(1, 'Harshit3940', 'sdfsdff', 'sdfsdff', '2018-02-07', '2018-02-14', 432),
+(2, 'Harshit3940', 'werrwe', 'rwerewrwe', '2018-02-20', '2018-02-22', 6567),
+(3, 'Harshit3940', 'erwrew', 'rrwerwerwe', '2018-02-21', '2018-02-25', 76),
+(4, 'Harshit3940', 'tuuuy', 'rtettete', '2018-02-20', '2018-02-25', 53);
 
 -- --------------------------------------------------------
 
@@ -327,6 +339,34 @@ CREATE TABLE `subject_taught` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `teacher_experience_details`
+--
+
+CREATE TABLE `teacher_experience_details` (
+  `sr_no` int(11) NOT NULL,
+  `emp_id` varchar(32) NOT NULL,
+  `organization_name` varchar(128) NOT NULL,
+  `designation` varchar(48) NOT NULL,
+  `date_of_joining` date NOT NULL,
+  `last_date_of_working` date NOT NULL,
+  `current_pay_scale` int(8) NOT NULL,
+  `grade_pay` int(8) NOT NULL,
+  `nature_of_appointment` varchar(16) NOT NULL,
+  `ussc_app_date` date NOT NULL,
+  `ussc_ref_no` varchar(16) NOT NULL,
+  `teaching_exp_years` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `teacher_experience_details`
+--
+
+INSERT INTO `teacher_experience_details` (`sr_no`, `emp_id`, `organization_name`, `designation`, `date_of_joining`, `last_date_of_working`, `current_pay_scale`, `grade_pay`, `nature_of_appointment`, `ussc_app_date`, `ussc_ref_no`, `teaching_exp_years`) VALUES
+(1, 'Harshit3940', 'dsfd', 'gssgsg', '2018-02-07', '2018-02-13', 24432, 432432, 'Visiting', '2018-02-12', '4343', 234);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `training_courses_attended`
 --
 
@@ -339,16 +379,6 @@ CREATE TABLE `training_courses_attended` (
   `end_date` date NOT NULL,
   `proof` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `training_courses_attended`
---
-
-INSERT INTO `training_courses_attended` (`Sr_no`, `emp_id`, `course_name`, `organization_name`, `start_date`, `end_date`, `proof`) VALUES
-(7, '', 'khdakdha', 'sfsdfhkshfksfs', '2018-02-06', '2018-02-20', 0x34353435),
-(8, '', 'adkhda', 'ksfshfkjsfsf', '2018-01-28', '2018-02-15', 0x3336),
-(9, '', 'fksdkhskf', 'dfayutuyaff', '0000-00-00', '2017-03-22', 0x667366646466736466),
-(10, '', 'GSJKHJSF', 'SHFSJKHFSKFS', '2018-02-12', '2018-02-11', 0x33353433353335);
 
 -- --------------------------------------------------------
 
@@ -364,15 +394,6 @@ CREATE TABLE `training_courses_organize` (
   `course_duration` varchar(20) NOT NULL,
   `proof` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `training_courses_organize`
---
-
-INSERT INTO `training_courses_organize` (`Sr_no`, `emp_id`, `course_name`, `responsibility`, `course_duration`, `proof`) VALUES
-(1, '', 'wrwyriwuy', 'wruywiyriw', '1992-12-12', ''),
-(2, '', 'sfkjfshkjfs', 'rwerwrewrr', '2018-02-05', ''),
-(3, '', 'HSKFDKDSF', 'SDFSFSFSDFSF', '2018-02-14', '');
 
 -- --------------------------------------------------------
 
@@ -397,7 +418,7 @@ CREATE TABLE `user_accounts` (
 --
 
 INSERT INTO `user_accounts` (`acc_id`, `email_id`, `password`, `emp_id`, `created_on`, `acc_status`, `act_id`, `acc_act_time`, `last_login`) VALUES
-(5, 'kalpana.wani@fcrit.ac.in', '$2y$10$G7CbZP.dIVoSHk0ftJvggOWI45sQ84gkQ.Oz10flaAiowwqolkOd.', 'Harshit3940', '2018-02-02 10:17:51', 'not activated', 'ce33f17c402c4c5c414d5ca7aa947193fbf064520263f22f2a58bc6daf51ce8164c858d4c88548ee', NULL, '2018-02-04 13:09:53');
+(5, 'kalpana.wani@fcrit.ac.in', '$2y$10$G7CbZP.dIVoSHk0ftJvggOWI45sQ84gkQ.Oz10flaAiowwqolkOd.', 'Harshit3940', '2018-02-02 10:17:51', 'not activated', 'ce33f17c402c4c5c414d5ca7aa947193fbf064520263f22f2a58bc6daf51ce8164c858d4c88548ee', NULL, '2018-02-27 12:35:49');
 
 --
 -- Indexes for dumped tables
@@ -422,12 +443,6 @@ ALTER TABLE `designation`
   ADD PRIMARY KEY (`sr`);
 
 --
--- Indexes for table `experience_details`
---
-ALTER TABLE `experience_details`
-  ADD PRIMARY KEY (`Sr.No`);
-
---
 -- Indexes for table `external_fundedproject`
 --
 ALTER TABLE `external_fundedproject`
@@ -446,6 +461,12 @@ ALTER TABLE `faculty_personal_details`
   ADD UNIQUE KEY `pan_no` (`pan_no`),
   ADD UNIQUE KEY `pf_no` (`pf_no`),
   ADD UNIQUE KEY `aadhar` (`aadhar`);
+
+--
+-- Indexes for table `industry_experience_details`
+--
+ALTER TABLE `industry_experience_details`
+  ADD PRIMARY KEY (`sr_no`);
 
 --
 -- Indexes for table `interaction_with_outside_world`
@@ -490,6 +511,12 @@ ALTER TABLE `qualification_details`
   ADD PRIMARY KEY (`emp_id`,`qualification`);
 
 --
+-- Indexes for table `research_experience_details`
+--
+ALTER TABLE `research_experience_details`
+  ADD PRIMARY KEY (`sr_no`);
+
+--
 -- Indexes for table `staff_emp_details`
 --
 ALTER TABLE `staff_emp_details`
@@ -502,6 +529,12 @@ ALTER TABLE `staff_emp_details`
 --
 ALTER TABLE `subject_taught`
   ADD PRIMARY KEY (`Sr.No`);
+
+--
+-- Indexes for table `teacher_experience_details`
+--
+ALTER TABLE `teacher_experience_details`
+  ADD PRIMARY KEY (`sr_no`);
 
 --
 -- Indexes for table `training_courses_attended`
@@ -538,15 +571,15 @@ ALTER TABLE `book_publication`
 ALTER TABLE `designation`
   MODIFY `sr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 --
--- AUTO_INCREMENT for table `experience_details`
---
-ALTER TABLE `experience_details`
-  MODIFY `Sr.No` int(200) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `external_fundedproject`
 --
 ALTER TABLE `external_fundedproject`
   MODIFY `Sr_no` int(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `industry_experience_details`
+--
+ALTER TABLE `industry_experience_details`
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `interaction_with_outside_world`
 --
@@ -578,10 +611,20 @@ ALTER TABLE `professional_membership`
 ALTER TABLE `project_guided`
   MODIFY `Sr_no` int(10) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `research_experience_details`
+--
+ALTER TABLE `research_experience_details`
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `subject_taught`
 --
 ALTER TABLE `subject_taught`
   MODIFY `Sr.No` int(255) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `teacher_experience_details`
+--
+ALTER TABLE `teacher_experience_details`
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `training_courses_attended`
 --

@@ -1,8 +1,11 @@
 <?php
 session_start();
+// print_r($_POST);
+// echo("<br>");
+// print_r($_FILES);
 if(isset($_SESSION['eid']))
 {
-	$eid = $_SESSION['eid'];
+	$emp_id = $_SESSION['eid'];
 	if(isset($_POST['submit']))
 	{
 		error_reporting(E_ERROR | E_PARSE);
@@ -12,9 +15,10 @@ if(isset($_SESSION['eid']))
 		//print($file_count);;
 		//pc = proof_count
 		$qualification_pc = 0;
-		$experience_pc = 0;
-		$appointment_pc = 0;
-		$overall_experience_pc = 0;
+		$qualif_data = [];
+		$teacher_exp_pc = 0;
+		$research_exp_pc = 0;
+		$industry_exp_pc = 0;
 		//tswc = training, seminar, workshop, conference
 		$tswc_attended_pc = 0;
 		$tswc_organized_pc =0;
@@ -26,17 +30,17 @@ if(isset($_SESSION['eid']))
 				$qualification_pc++;
 			}
 
-			if(strpos($key,'experience_details_') !== false)
+			if(strpos($key,'teacher_exp_details_') !== false)
 			{
-				$experience_pc++;
+				$teacher_exp_pc++;
 			}	
-			if(strpos($key,'appointment_details_') !== false)
+			if(strpos($key,'research_exp_details_') !== false)
 			{
-				$appointment_pc++;
+				$research_exp_pc++;;
 			}
-			if(strpos($key,'overall_exp_details_') !== false)
+			if(strpos($key,'industry_exp_details_') !== false)
 			{
-				$overall_experience_pc++;
+				$industry_exp_pc++;
 			}
 			if(strpos($key,'train_conf_') !== false)
 			{
@@ -62,32 +66,32 @@ if(isset($_SESSION['eid']))
 
 		}
 		
-		if($experience_pc>0)
+		if($teacher_exp_pc>0)
 		{
-			for($itr=0; $itr<$experience_pc; $itr++)
+			for($itr=0; $itr<$teacher_exp_pc; $itr++)
 			{
-				array_push($img_arr, 'experience_proof_'.($itr+1));
-				array_push($type_identify, 'experience_details_'.($itr+1));
+				array_push($img_arr, 'teacher_exp_proof_'.($itr+1));
+				array_push($type_identify, 'teacher_exp_details_'.($itr+1));
 			}
 
 		}
 		
-		if($appointment_pc>0)
+		if($research_exp_pc>0)
 		{
-			for($itr=0; $itr<$appointment_pc; $itr++)
+			for($itr=0; $itr<$research_exp_pc; $itr++)
 			{
-				array_push($img_arr, 'appointment_proof_'.($itr+1));
-				array_push($type_identify, 'appointment_details_'.($itr+1));
+				array_push($img_arr, 'reseach_exp_proof_'.($itr+1));
+				array_push($type_identify, 'research_exp_details_'.($itr+1));
 			}
 
 		}
 		
-		if($overall_experience_pc>0)
+		if($industry_exp_pc>0)
 		{
-			for($itr=0; $itr<$overall_experience_pc; $itr++)
+			for($itr=0; $itr<$industry_exp_pc; $itr++)
 			{
-				array_push($img_arr, 'overall_exp_proof_'.($itr+1));
-				array_push($type_identify, 'overall_exp_details_'.($itr+1));
+				array_push($img_arr, 'industry_exp_proof_'.($itr+1));
+				array_push($type_identify, 'industry_exp_details_'.($itr+1));
 			}
 		}
 		
@@ -117,7 +121,7 @@ if(isset($_SESSION['eid']))
 			$target_file = $target_dir . basename($_FILES[$type_identify[$i]]["name"][0]);
 			$path_parts = pathinfo($target_file);
 			$file_extension = $path_parts['extension'];
-			$saved_name = $target_dir.$img_arr[$i].'_'.$eid.'.'.$file_extension;
+			$saved_name = $target_dir.$img_arr[$i].'_'.$emp_id.'.'.$file_extension;
 			$uploadOk = 1;
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 				// Check if image file is a actual image or fake image
@@ -167,65 +171,6 @@ if(isset($_SESSION['eid']))
 					header("Location: alert.php?code=$code");
 	    		}
 			}
-			if(strpos($type_identify[$i],"overall_exp_details_") !== false)
-			{
-				for($j=1;$j<3;$j++)
-				{
-					$target_file = $target_dir . basename($_FILES[$type_identify[$i]]["name"][$j]);
-					$path_parts = pathinfo($target_file);
-					$file_extension = $path_parts['extension'];
-					$saved_name = $target_dir.$img_arr[$i].'-'.($j+1).'_'.$eid.'.'.$file_extension;
-					$uploadOk = 1;
-					$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-						// Check if image file is a actual image or fake image
-			    	$check = getimagesize($_FILES[$type_identify[$i]]["tmp_name"][$j]);
-			    	if($check !== false) 
-			    	{
-			        	//echo "File is an image - " . $check["mime"] . ".<br>";
-			        	$uploadOk = 1;
-			    	} 
-			    	else 
-			    	{
-			    		//handle error
-			        	//echo "File is not an image.<br>";
-			        	$uploadOk = 0;
-			    	}
-						// Check if file already exists
-					if (file_exists($saved_name)) 
-					{
-						//handle error
-			    		//echo "Sorry, file already exists.<br>";
-			    		$uploadOk = 0;
-					}
-						// Check file size
-					if ($_FILES["fileToUpload"]["size"][$i] > 1000000) 
-					{
-						//handle error
-			    		//echo "Sorry, your file is too large.<br>";
-			    		$uploadOk = 0;
-					}
-						// Check if $uploadOk is set to 0 by an error
-					if ($uploadOk == 0) 
-					{
-						//handle error
-			    		//echo "Sorry, your file was not uploaded.<br>";
-					}
-					else 
-					{
-			    		if (move_uploaded_file($_FILES[$type_identify[$i]]["tmp_name"][$j],$saved_name)) 
-			    		{
-			    			//successful
-			    			//echo("Successful");
-
-			    		} 
-			    		else 
-			    		{
-			        		$code = 500;
-							header("Location: alert.php?code=$code");
-			    		}
-					}
-				}
-			}
 		}
 
 
@@ -252,7 +197,12 @@ if(isset($_SESSION['eid']))
 		}
 
 		$qualific_details = [];
-		$exp_details = [];
+		//$exp_details = [];
+		$teacher_exp_details = [];
+		//$apppoint_details = [];
+		$research_exp_details = [];
+		//$ooverall_exp = [];
+		$industry_exp_details = [];
 		$subs_taught = [];
 		$prof_memship = [];
 		$interact_outside = [];
@@ -266,11 +216,20 @@ if(isset($_SESSION['eid']))
 				array_push($qualific_details,$final[$key]);
 			}
 			
-			if(strpos($value,'exp_details_') !== false)
+			if(strpos($value,'teacher_exp_details_') !== false)
 			{
-				array_push($exp_details,$final[$key]);
+				array_push($teacher_exp_details,$final[$key]);
 			}
 
+			if(strpos($value,'research_exp_details_') !== false)
+			{
+				array_push($research_exp_details,$final[$key]);
+			}
+
+			if(strpos($value,'industry_exp_details_') !== false)
+			{
+				array_push($industry_exp_details,$final[$key]);
+			}
 
 			if(strpos($value,'subs_taught_') !== false)
 			{
@@ -303,9 +262,18 @@ if(isset($_SESSION['eid']))
 			}
 		}
 
-		$qd_itr = 9;
-		$ed_itr = 5;
-		$st_itr = 5;
+		// print_r($teacher_exp_details);
+		// echo("<br>");
+		// print_r($research_exp_details);
+		// echo("<br>");
+		// print_r($industry_exp_details);
+		// echo("<br>");
+
+		$qd_itr = 8;
+		$ted_itr = 10;
+		$red_itr = 5;
+		$ied_itr = 5;
+		$st_itr = 4;
 		$pm_itr = 3;
 		$io_itr = 3;
 		$tc_itr = 5;
@@ -313,18 +281,29 @@ if(isset($_SESSION['eid']))
 		$pg_itr = 7;
 
 		$qd_rcount = count($qualific_details)/$qd_itr;
-		$ed_rcount = count($exp_details)/$ed_itr;
+		// print($qd_rcount);
+		$ted_rcount = count($teacher_exp_details)/$ted_itr;
+		// print($ted_rcount);
+		$red_rcount = count($research_exp_details)/$red_itr;
+		// print($red_rcount);
+		$ied_rcount = count($industry_exp_details)/$ied_itr;
+		// print($ied_rcount);
 		$st_rcount = count($subs_taught)/$st_itr;
+		// print($st_rcount);
 		$pm_rcount = count($prof_memship)/$pm_itr;
+		// print($pm_rcount);
 		$io_rcount = count($interact_outside)/$io_itr;
+		// print($io_rcount);
 		$tc_rcount = count($train_conf)/$tc_itr;
+		// print($tc_rcount);
 		$org_rcount = count($organization)/$org_itr;
+		// print($org_rcount);
 		$pg_rcount = count($projects_guided)/$pg_itr;
-
+		// print($pg_rcount);
 		$conn = mysqli_connect("localhost" , "root" ,"");
 		mysqli_select_db($conn,"college");
 		
-		// insert into qualification details
+		// insert into qualification details STARTS HERE -- working
 		if($qd_rcount > 0)
 		{
 			for($curr_row = 1; $curr_row <= $qd_rcount; $curr_row++)
@@ -344,60 +323,137 @@ if(isset($_SESSION['eid']))
 
 			for($i=1;$i<=$qd_rcount;$i++){
 				$query = "insert into qualification_details(emp_id,qualification, branch, specialization, university, percentage, cgpa, class_obtained, passing_year, proof) values ('$emp_id','".$qd["$i"][0]."','".$qd["$i"][1]."','".$qd["$i"][2]."','".$qd["$i"][3]."','".$qd["$i"][4]."','".$qd["$i"][5]."','".$qd["$i"][6]."','".$qd["$i"][7]."','".$qd["$i"][8]."')";
-				//echo($query);
-				echo("<br>");
+				// echo($query);
+				// echo("<br>");
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in qualification_details inserted";
+					//echo "row in qualification_details inserted";
 				}
 				else
 				{
 					echo "error in qualification_details insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					//echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
-	// insert into qualification details ENDS
+	// insert into qualification details ENDS HERE
 
-	// insert into experience details
-		if($ed_rcount > 0)
+	// insert into teacher experience details STARTS HERE
+
+		if($ted_rcount > 0)
 		{
-			for($curr_row = 1; $curr_row <= $ed_rcount; $curr_row++)
+			for($curr_row = 1; $curr_row <= $ted_rcount; $curr_row++)
 			{	
-				${"exp_details_$curr_row"} = [];
-				for($i = ($ed_itr*($curr_row-1)); $i< ($ed_itr*($curr_row)) ; $i++)
+				${"teacher_exp_details_$curr_row"} = [];
+				for($i = ($ted_itr*($curr_row-1)); $i< ($ted_itr*($curr_row)) ; $i++)
 				{
-					array_push(${"exp_details_$curr_row"}, $exp_details[$i]);
+					array_push(${"teacher_exp_details_$curr_row"}, $teacher_exp_details[$i]);
 				}
 			}
 
-			for($i=1;$i<=$ed_rcount;$i++)
+			for($i=1;$i<=$ted_rcount;$i++)
 			{
 				//print_r(${"qualific_details_$i"});
 				//echo "<br>";
-				$_SESSION["ed_$i"] = ${"exp_details_$i"};
-				$ed["$i"] = $_SESSION["ed_$i"]; 
+				$ted["$i"] = ${"teacher_exp_details_$i"};
 			}
 
-			for($i=1;$i<=$ed_rcount;$i++){
-				$query = "insert into exp_details(emp_id,Oranization_name, Designation, Date_of_joining, last_Date_of_working, proof_of_designation) values ('$emp_id','".$ed["$i"][0]."','".$ed["$i"][1]."','".$ed["$i"][2]."','".$ed["$i"][3]."','".$ed["$i"][4]."')";
-				echo($query);
-				echo("<br>");
+			for($i=1;$i<=$ted_rcount;$i++){
+				$query = "insert into teacher_experience_details(emp_id,organization_name, designation, date_of_joining, last_date_of_working, current_pay_scale, grade_pay, nature_of_appointment, ussc_app_date, ussc_ref_no, teaching_exp_years) values ('$emp_id','".$ted["$i"][0]."','".$ted["$i"][1]."','".$ted["$i"][2]."','".$ted["$i"][3]."','".$ted["$i"][4]."','".$ted["$i"][5]."','".$ted["$i"][6]."','".$ted["$i"][7]."','".$ted["$i"][8]."','".$ted["$i"][9]."')";
+				//echo($query);
+				//echo("<br>");
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in exp_details inserted";
+					// echo "row in exp_details inserted";
 				}
 				else
 				{
 					echo "error in exp_details insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					//echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
-	// insert into experience details ENDS
+		
+	// insert into teacher experience details ENDS
 
+	// insert into research experience details BEGINS
+		if($red_rcount > 0)
+		{
+			for($curr_row = 1; $curr_row <= $red_rcount; $curr_row++)
+			{	
+				${"research_exp_details_$curr_row"} = [];
+				for($i = ($red_itr*($curr_row-1)); $i< ($red_itr*($curr_row)) ; $i++)
+				{
+					array_push(${"research_exp_details_$curr_row"}, $research_exp_details[$i]);
+				}
+			}
+
+			for($i=1;$i<=$red_rcount;$i++)
+			{
+				//print_r(${"qualific_details_$i"});
+				//echo "<br>";
+				$red["$i"] = ${"research_exp_details_$i"};
+			}
+
+			for($i=1;$i<=$red_rcount;$i++){
+				$query = "insert into research_experience_details(emp_id,organization_name, designation, date_of_joining, last_date_of_working, research_exp_years) values ('$emp_id','".$red["$i"][0]."','".$red["$i"][1]."','".$red["$i"][2]."','".$red["$i"][3]."','".$red["$i"][4]."')";
+				//echo($query);
+				//echo("<br>");
+
+				if(mysqli_query($conn,$query))
+				{
+					//echo "row in exp_details inserted";
+				}
+				else
+				{
+					echo "error in exp_details insertion";
+					//echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				}
+			}
+		}
+
+	// insert into research experience details ENDS
+
+	// insert into industry experience details BEGINS
+		if($ied_rcount > 0)
+		{
+			for($curr_row = 1; $curr_row <= $ied_rcount; $curr_row++)
+			{	
+				${"industry_exp_details_$curr_row"} = [];
+				for($i = ($ied_itr*($curr_row-1)); $i< ($ied_itr*($curr_row)) ; $i++)
+				{
+					array_push(${"industry_exp_details_$curr_row"}, $industry_exp_details[$i]);
+				}
+			}
+
+			for($i=1;$i<=$ied_rcount;$i++)
+			{
+				//print_r(${"qualific_details_$i"});
+				//echo "<br>";
+				$ied["$i"] = ${"industry_exp_details_$i"};
+			}
+
+			for($i=1;$i<=$ied_rcount;$i++){
+				$query = "insert into industry_experience_details(emp_id,organization_name, designation, date_of_joining, last_date_of_working, industry_exp_years) values ('$emp_id','".$ied["$i"][0]."','".$ied["$i"][1]."','".$ied["$i"][2]."','".$ied["$i"][3]."','".$ied["$i"][4]."')";
+				// echo($query);
+				// echo("<br>");
+
+				if(mysqli_query($conn,$query))
+				{
+					// echo "row in exp_details inserted";
+				}
+				else
+				{
+					echo "error in exp_details insertion";
+					// echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+				}
+			}
+		}
+
+
+	// insert into industry experience details ENDS
 
 	// insert into subject taught
 		if($st_rcount > 0)
@@ -428,12 +484,12 @@ if(isset($_SESSION['eid']))
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in subject_taught inserted";
+					// echo "row in subject_taught inserted";
 				}
 				else
 				{
 					echo "error in subject_taught insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					// echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
@@ -465,16 +521,16 @@ if(isset($_SESSION['eid']))
 			for($i=1;$i<=$pm_rcount;$i++){
 				$query = "insert into professional_membership(emp_id,Membership_category,Membership_no,Body_of_organization) values ('$emp_id','".$pm["$i"][0]."','".$pm["$i"][1]."','".$pm["$i"][2]."')";
 				//echo($query);
-				echo("<br>");
+				// echo("<br>");
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in professional_membership inserted";
+					// echo "row in professional_membership inserted";
 				}
 				else
 				{
 					echo "error in professional_membership insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					// echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
@@ -510,12 +566,12 @@ if(isset($_SESSION['eid']))
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in interaction_with_outside_world inserted";
+					// echo "row in interaction_with_outside_world inserted";
 				}
 				else
 				{
 					echo "error in interaction_with_outside_world insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					// echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
@@ -547,16 +603,17 @@ if(isset($_SESSION['eid']))
 			for($i=1;$i<=$tc_rcount;$i++){
 				$query = "insert into training_courses_attended(emp_id,course_name,organization_name,start_date,end_date,proof) values ('$emp_id','".$tc["$i"][0]."','".$tc["$i"][1]."','".$tc["$i"][2]."','".$tc["$i"][3]."','".$tc["$i"][4]."')";
 				//echo($query);
-				echo("<br>");
+				// echo("<br>");
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in training_courses_attended inserted";
+					//successfull
 				}
 				else
 				{
+					//handle the error
 					echo "error in training_courses_attended insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					// echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
@@ -589,16 +646,16 @@ if(isset($_SESSION['eid']))
 			for($i=1;$i<=$org_rcount;$i++){
 				$query = "insert into training_courses_organize(emp_id,course_name,responsibility,course_duration,proof) values ('$emp_id','".$org["$i"][0]."','".$org["$i"][1]."','".$org["$i"][2]."','".$org["$i"][3]."')";
 				//echo($query);
-				echo("<br>");
+				// echo("<br>");
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in training_courses_organize inserted";
+					// echo "row in training_courses_organize inserted";
 				}
 				else
 				{
 					echo "error in training_courses_organize insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					// echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
@@ -636,12 +693,12 @@ if(isset($_SESSION['eid']))
 
 				if(mysqli_query($conn,$query))
 				{
-					echo "row in project_guided inserted";
+					// echo "row in project_guided inserted";
 				}
 				else
 				{
 					echo "error in project_guided insertion";
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					// echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 			}
 		}
